@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from app.repositories.user_repository import UserRepository
-from app.schemas.user import UserCreate, UserResponse
+from app.schemas.usuario import UserCreate, UserResponse
 from app.services.token_service import TokenService
 from app.services.google_oauth_service import GoogleOAuthService
 from typing import Optional, Dict
@@ -58,14 +58,12 @@ class AuthService:
     
     def get_current_user(self, token: str) -> Optional[UserResponse]:
         """Obtener usuario actual desde token"""
-        print(f"🔍 AuthService.get_current_user llamado con token: {token[:50] if token else 'None'}...")
         token_data = TokenService.verify_token(token)
         
         if not token_data or not token_data.user_id:
             print(f"❌ Token inválido o sin user_id")
             return None
         
-        print(f"👤 Buscando usuario con ID: {token_data.user_id}")
         user = self.user_repo.get_by_id(int(token_data.user_id))
         
         if not user:

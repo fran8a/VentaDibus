@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File, Form
 from sqlalchemy.orm import Session
 from app.config.database import get_db
-from app.schemas.drawing import DrawingCreate, DrawingResponse
+from app.schemas.dibujos import DrawingCreate, DrawingResponse
 from app.repositories.drawing_repository import DrawingRepository
 from app.services.auth_service import AuthService
 from fastapi.security import OAuth2PasswordBearer
@@ -71,8 +71,6 @@ async def upload_drawing(
             detail="File must be an image"
         )
     
-    print(f"📸 Subiendo imagen: {file.filename}")
-    print(f"🔗 Link de Instagram: {instagram_link}")
     
     # Generar nombre único para el archivo
     file_extension = os.path.splitext(file.filename)[1]
@@ -91,7 +89,6 @@ async def upload_drawing(
     )
     
     drawing = drawing_repo.create(drawing_data, user.id)
-    print(f"✅ Dibujo guardado con ID: {drawing.id}, Link: {drawing.instagram_link}")
     return drawing
 
 
@@ -141,13 +138,11 @@ async def update_drawing(
             detail="Drawing not found"
         )
     
-    print(f"📝 Actualizando dibujo {drawing_id}")
-    print(f"🔗 Nuevo link: {instagram_link}")
     
     # Actualizar link de Instagram
     drawing.instagram_link = instagram_link if instagram_link and instagram_link.strip() else None
     db.commit()
     db.refresh(drawing)
     
-    print(f"✅ Dibujo actualizado")
+    print(f"Dibujo actualizado")
     return drawing

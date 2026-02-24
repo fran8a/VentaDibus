@@ -3,8 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from app.config.database import engine, Base
 from app.config.settings import settings
-from app.routes.auth_routes import router as auth_router
-from app.routes.drawing_routes import router as drawing_router
+from app.routes.login import router as auth_router
+from app.routes.dibujos import router as drawing_router
+from app.routes.precios import router as pricing_router
 import os
 
 # Crear tablas
@@ -28,6 +29,7 @@ app.add_middleware(
 # Incluir rutas
 app.include_router(auth_router)
 app.include_router(drawing_router)
+app.include_router(pricing_router)
 
 # Crear directorio de uploads si no existe
 os.makedirs("uploads/drawings", exist_ok=True)

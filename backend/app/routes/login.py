@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from app.config.database import get_db
 from app.config.settings import settings
 from app.services.auth_service import AuthService
-from app.schemas.user import UserResponse, Token
+from app.schemas.usuario import UserResponse, Token
 from fastapi.security import OAuth2PasswordBearer
 from typing import Optional
 from pydantic import BaseModel
@@ -27,9 +27,6 @@ async def google_login(
 ):
     """Autenticar con Google usando el token JWT de Google"""
     try:
-        print(f"🔐 Recibido token de Google (primeros 50 chars): {token_request.token[:50]}...")
-        print(f"🔑 Client ID configurado: {settings.google_client_id[:30]}...")
-        
         # Verificar el token con Google (con tolerancia de 60 segundos para desfase de reloj)
         idinfo = id_token.verify_oauth2_token(
             token_request.token,
@@ -85,7 +82,6 @@ async def google_login(
             data={"sub": str(user.id), "email": user.email}
         )
         
-        print(f"🎫 Token JWT generado exitosamente")
         
         return {
             "access_token": access_token,
@@ -151,7 +147,6 @@ async def get_current_user(
     db: Session = Depends(get_db)
 ):
     """Obtener información del usuario actual"""
-    print(f"🔍 Token recibido en /me: {token}")
     
     if not token:
         raise HTTPException(
@@ -163,7 +158,6 @@ async def get_current_user(
     user = auth_service.get_current_user(token)
     
     if not user:
-        print(f"❌ Usuario no encontrado con el token")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid authentication credentials"

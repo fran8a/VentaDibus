@@ -142,7 +142,14 @@ const ComoAdquirir = () => {
           <p className="contact-text">
             Escribime y creemos algo único juntos
           </p>
-          <button className="contact-button">Contactar Ahora</button>
+          <a 
+            href="https://wa.me/5492966563805?text=Hola%20Sabrii%2C%20quiero%20un%20dibujo%20de%20mi%20mascota%20%3C3%21" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="contact-button"
+          >
+            Contactar Ahora
+          </a>
         </div>
       </div>
     </div>

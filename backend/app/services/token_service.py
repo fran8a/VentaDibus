@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 from typing import Optional
 from jose import JWTError, jwt
 from app.config.settings import settings
-from app.schemas.user import TokenData
+from app.schemas.usuario import TokenData
 
 
 class TokenService:
@@ -23,11 +23,9 @@ class TokenService:
     def verify_token(token: str) -> Optional[TokenData]:
         """Verificar y decodificar token JWT"""
         try:
-            print(f"🔐 Verificando token: {token[:50]}...")
             payload = jwt.decode(token, settings.secret_key, algorithms=[settings.algorithm])
             user_id: str = payload.get("sub")
             email: str = payload.get("email")
-            print(f"👤 User ID extraído del token: {user_id}")
             print(f"📧 Email extraído del token: {email}")
             if user_id is None:
                 print(f"❌ No se encontró user_id en el payload")

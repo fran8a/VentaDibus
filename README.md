@@ -95,4 +95,4 @@ El sistema utiliza Google OAuth 2.0 con la librería `@react-oauth/google` para 
 
 ---
 
-Desarrollado con ❤️ por Sabri
+Desarrollado con ❤️ por Fran

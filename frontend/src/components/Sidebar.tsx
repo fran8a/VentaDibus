@@ -61,7 +61,7 @@ const Sidebar = () => {
           {isOpen && (
             <div className="logo-container">
               <span className="logo-icon">🐾</span>
-              <h2 className="logo-text">Pet Art</h2>
+              <h2 className="logo-text">Sab Dibus</h2>
             </div>
           )}
         </div>

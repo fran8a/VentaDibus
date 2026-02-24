@@ -1,0 +1,260 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease;
+}
+
+.edit-pricing-modal {
+  background: #ffffff;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 620px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  animation: slideUp 0.3s ease;
+}
+
+.modal-header {
+  padding: 24px 28px;
+  border-bottom: 1px solid rgba(139, 119, 101, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  font-size: 24px;
+  font-weight: 400;
+  color: #6b5d52;
+  margin: 0;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 32px;
+  color: #8b7765;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+  background: rgba(139, 119, 101, 0.1);
+  color: #6b5d52;
+}
+
+.pricing-edit-form {
+  padding: 28px;
+}
+
+.pricing-error {
+  background: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.pricing-edit-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(139, 119, 101, 0.15);
+}
+
+.pricing-edit-table thead {
+  background: linear-gradient(135deg, #d4a59a 0%, #c9a99e 100%);
+}
+
+.pricing-edit-table th {
+  padding: 14px 12px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  color: #4a3f37;
+  text-transform: uppercase;
+}
+
+.pricing-edit-table td {
+  padding: 10px 8px;
+  text-align: center;
+  font-size: 15px;
+  color: #4a3f37;
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid rgba(139, 119, 101, 0.1);
+}
+
+.pricing-edit-table .size-first-row td {
+  border-top: 2px solid rgba(139, 119, 101, 0.2);
+}
+
+.cell-medida {
+  font-weight: 500;
+  font-size: 16px;
+  background: rgba(245, 240, 232, 0.8) !important;
+  width: 20%;
+}
+
+.cell-estilo {
+  width: 20%;
+  font-weight: 400;
+}
+
+.cell-precio {
+  width: 30%;
+}
+
+.pricing-input {
+  width: 100%;
+  max-width: 120px;
+  padding: 8px 10px;
+  border: 2px solid rgba(139, 119, 101, 0.2);
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #4a3f37;
+  text-align: center;
+  background: #fafaf8;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  -moz-appearance: textfield;
+}
+
+.pricing-input::-webkit-inner-spin-button,
+.pricing-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.pricing-input:focus {
+  outline: none;
+  border-color: #c9b79c;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(201, 183, 156, 0.2);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.btn-cancel,
+.btn-submit {
+  flex: 1;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  letter-spacing: 0.3px;
+}
+
+.btn-cancel {
+  background: rgba(139, 119, 101, 0.1);
+  color: #6b5d52;
+}
+
+.btn-cancel:hover:not(:disabled) {
+  background: rgba(139, 119, 101, 0.2);
+}
+
+.btn-submit {
+  background: #6b5d52;
+  color: #ffffff;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background: #5a4d42;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(107, 93, 82, 0.3);
+}
+
+.btn-submit:disabled,
+.btn-cancel:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .edit-pricing-modal {
+    width: 95%;
+    max-height: 85vh;
+  }
+
+  .modal-header {
+    padding: 20px 24px;
+  }
+
+  .modal-header h2 {
+    font-size: 20px;
+  }
+
+  .pricing-edit-form {
+    padding: 20px 16px;
+  }
+
+  .pricing-input {
+    max-width: 90px;
+    padding: 6px 6px;
+    font-size: 14px;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pricing-edit-form {
+    padding: 16px 12px;
+  }
+
+  .pricing-edit-table th {
+    font-size: 11px;
+    padding: 10px 6px;
+  }
+
+  .pricing-edit-table td {
+    padding: 8px 4px;
+    font-size: 13px;
+  }
+
+  .pricing-input {
+    max-width: 75px;
+    padding: 6px 4px;
+    font-size: 13px;
+  }
+}

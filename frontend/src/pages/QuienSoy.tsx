@@ -109,11 +109,7 @@ const QuienSoy = () => {
               <h4 className="skill-name">Ilustración Digital</h4>
               <p className="skill-description">Retratos personalizados de mascotas</p>
             </div>
-            <div className="skill-card">
-              <span className="skill-icon">🧠</span>
-              <h4 className="skill-name">IA Generativa</h4>
-              <p className="skill-description">Herramientas de inteligencia artificial aplicadas al diseño</p>
-            </div>
+            
           </div>
         </div>
 

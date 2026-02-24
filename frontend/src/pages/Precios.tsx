@@ -1,61 +1,104 @@
+import { useState, useEffect } from 'react';
+import { useAuth } from '../context/AuthContext';
+import EditPricingModal from '../components/EditPricingModal';
+import { type Pricing, getAllPricing } from '../services';
 import './Precios.css';
 
 const Precios = () => {
+  const { user, token } = useAuth();
+  const [pricingData, setPricingData] = useState<Pricing[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+  const ADMIN_EMAIL = 'franochoarodriguez@gmail.com';
+  const isAdmin = user?.email === ADMIN_EMAIL;
+
+  useEffect(() => {
+    fetchPricing();
+  }, []);
+
+  const fetchPricing = async () => {
+    try {
+      const data = await getAllPricing();
+      setPricingData(data);
+    } catch (error) {
+      console.error('Error fetching pricing:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Agrupar precios por tamaño
+  const groupedPricing = pricingData.reduce((acc, item) => {
+    if (!acc[item.size]) {
+      acc[item.size] = [];
+    }
+    acc[item.size].push(item);
+    return acc;
+  }, {} as Record<string, Pricing[]>);
+
+  const sizes = ['15x21', '20x30', '30x40'];
+
   return (
     <div className="precios">
       <header className="page-header">
         <h1 className="page-title">Retratos de animales a lápiz</h1>
       </header>
 
-      <div className="pricing-table-container">
-        <table className="pricing-table">
-          <thead>
-            <tr>
-              <th className="col-medidas">MEDIDAS</th>
-              <th className="col-estilo">ESTILO</th>
-              <th className="col-precio">SIN CUADRO</th>
-              <th className="col-precio">CON CUADRO</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="medida" rowSpan={2}>15 x 21</td>
-              <td className="estilo">Blanco y negro</td>
-              <td className="precio">$37.000</td>
-              <td className="precio">$43.000</td>
-            </tr>
-            <tr>
-              <td className="estilo">Color</td>
-              <td className="precio">$47.000</td>
-              <td className="precio">$53.000</td>
-            </tr>
-            
-            <tr>
-              <td className="medida" rowSpan={2}>20 x 30</td>
-              <td className="estilo">Blanco y negro</td>
-              <td className="precio">$51.000</td>
-              <td className="precio">$61.000</td>
-            </tr>
-            <tr>
-              <td className="estilo">Color</td>
-              <td className="precio">$67.000</td>
-              <td className="precio">$77.000</td>
-            </tr>
-            
-            <tr>
-              <td className="medida" rowSpan={2}>30 x 40</td>
-              <td className="estilo">Blanco y negro</td>
-              <td className="precio">$75.000</td>
-              <td className="precio">$90.000</td>
-            </tr>
-            <tr>
-              <td className="estilo">Color</td>
-              <td className="precio">$98.000</td>
-              <td className="precio">$113.000</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      {isLoading ? (
+        <div className="loading">Cargando precios...</div>
+      ) : (
+        <div className="pricing-table-container">
+          {isAdmin && (
+            <div className="pricing-admin-bar">
+              <button className="btn-edit-prices" onClick={() => setIsEditModalOpen(true)}>
+                ✏️ Editar Precios
+              </button>
+            </div>
+          )}
+          <table className="pricing-table">
+            <thead>
+              <tr>
+                <th className="col-medidas">MEDIDAS</th>
+                <th className="col-estilo">ESTILO</th>
+                <th className="col-precio">SIN CUADRO</th>
+                <th className="col-precio">CON CUADRO</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sizes.map(size => {
+                const items = groupedPricing[size] || [];
+                return items.map((item, idx) => (
+                  <tr key={item.id}>
+                    {idx === 0 && (
+                      <td className="medida" rowSpan={items.length}>
+                        {item.size.replace('x', ' x ')}
+                      </td>
+                    )}
+                    <td className="estilo">{item.style}</td>
+                    <td className="precio">
+                      {`$${item.price_without_frame.toLocaleString()}`}
+                    </td>
+                    <td className="precio">
+                      {`$${item.price_with_frame.toLocaleString()}`}
+                    </td>
+                  </tr>
+                ));
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {isAdmin && token && (
+        <EditPricingModal
+          isOpen={isEditModalOpen}
+          onClose={() => setIsEditModalOpen(false)}
+          pricingData={pricingData}
+          token={token}
+          onUpdated={fetchPricing}
+        />
+      )}
 
       <div className="additional-info">
         <div className="info-card">

@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from app.models.drawing import Drawing
-from app.schemas.drawing import DrawingCreate
+from app.schemas.dibujos import DrawingCreate
 from typing import List, Optional
 
 

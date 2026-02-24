@@ -269,6 +269,8 @@
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(107, 93, 82, 0.2);
+  text-decoration: none;
+  display: inline-block;
 }
 
 .contact-button:hover {

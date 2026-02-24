@@ -2,13 +2,14 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import AddDrawingModal from '../components/AddDrawingModal';
 import EditDrawingModal from '../components/EditDrawingModal';
+import { 
+  type Drawing, 
+  getAllDrawings, 
+  uploadDrawing, 
+  updateDrawing, 
+  deleteDrawing 
+} from '../services';
 import './MisDibujos.css';
-
-interface Drawing {
-  id: number;
-  image_url: string;
-  instagram_link?: string;
-}
 
 const MisDibujos = () => {
   const { user, token } = useAuth();
@@ -28,11 +29,8 @@ const MisDibujos = () => {
 
   const fetchDrawings = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/drawings');
-      if (response.ok) {
-        const data = await response.json();
-        setDrawings(data);
-      }
+      const data = await getAllDrawings();
+      setDrawings(data);
     } catch (error) {
       console.error('Error fetching drawings:', error);
     } finally {
@@ -48,30 +46,12 @@ const MisDibujos = () => {
       instagramLink: instagramLink
     });
 
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('instagram_link', instagramLink);
-
     console.log('📤 Enviando request al backend...');
 
     try {
-      const response = await fetch('http://localhost:8000/api/drawings/upload', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-        body: formData,
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log('✅ Respuesta del servidor:', data);
-        await fetchDrawings();
-      } else {
-        const errorData = await response.json();
-        console.error('❌ Error del servidor:', errorData);
-        throw new Error('Failed to upload drawing');
-      }
+      const data = await uploadDrawing(token, file, instagramLink);
+      console.log('✅ Respuesta del servidor:', data);
+      await fetchDrawings();
     } catch (error) {
       console.error('Error uploading drawing:', error);
       throw error;
@@ -86,19 +66,9 @@ const MisDibujos = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:8000/api/drawings/${drawingId}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      });
-
-      if (response.ok) {
-        console.log('✅ Dibujo eliminado');
-        await fetchDrawings();
-      } else {
-        throw new Error('Failed to delete drawing');
-      }
+      await deleteDrawing(token, drawingId);
+      console.log('✅ Dibujo eliminado');
+      await fetchDrawings();
     } catch (error) {
       console.error('Error deleting drawing:', error);
       alert('Error al eliminar el dibujo');
@@ -113,25 +83,10 @@ const MisDibujos = () => {
   const handleUpdateDrawing = async (drawingId: number, instagramLink: string) => {
     if (!token) return;
 
-    const formData = new FormData();
-    formData.append('instagram_link', instagramLink);
-
     try {
-      const response = await fetch(`http://localhost:8000/api/drawings/${drawingId}`, {
-        method: 'PATCH',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-        body: formData,
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log('✅ Dibujo actualizado:', data);
-        await fetchDrawings();
-      } else {
-        throw new Error('Failed to update drawing');
-      }
+      const data = await updateDrawing(token, drawingId, instagramLink);
+      console.log('✅ Dibujo actualizado:', data);
+      await fetchDrawings();
     } catch (error) {
       console.error('Error updating drawing:', error);
       throw error;
