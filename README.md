@@ -2,7 +2,7 @@
 
 Plataforma web para la venta de dibujos personalizados de mascotas con autenticación mediante Google OAuth.
 
-## 🏗️ Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 ventaDibus/
@@ -52,25 +52,8 @@ pip install -r requirements.txt
 
 python main.py
 ```
+backend  `http://localhost:8000`
 
-El backend estará disponible en `http://localhost:8000`
-
-## 🎨 Características
-
-- ✅ Diseño minimalista con paleta beige/marrón
-- ✅ Sidebar retráctil con navegación
-- ✅ Galería de 17 dibujos de mascotas
-- ✅ Sistema de autenticación con Google OAuth
-- ✅ Gestión de usuarios con JWT
-- ✅ Arquitectura limpia (Repository Pattern)
-
-## 📄 Páginas
-
-- **Mis Dibujos**: Galería de trabajos realizados
-- **Cómo Adquirir**: Proceso de compra paso a paso
-- **Precios**: Información de precios según tamaño
-- **Experiencia**: Testimonios de clientes
-- **Quién Soy**: Información sobre la artista
 
 ## 🔐 Autenticación
 

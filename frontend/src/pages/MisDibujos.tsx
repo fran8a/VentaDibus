@@ -143,7 +143,7 @@ const MisDibujos = () => {
                   className="card-image-wrapper"
                 >
                   <img 
-                    src={`http://localhost:8000${drawing.image_url}`}
+                    src={`${import.meta.env.VITE_API_BASE_URL?.replace(/\/api$/, '')}${drawing.image_url}`}
                     alt={`Retrato ${drawing.id}`}
                     className="card-image"
                   />
@@ -154,7 +154,7 @@ const MisDibujos = () => {
               ) : (
                 <div className="card-image-wrapper">
                   <img 
-                    src={`http://localhost:8000${drawing.image_url}`}
+                    src={`${import.meta.env.VITE_API_BASE_URL?.replace(/\/api$/, '')}${drawing.image_url}`}
                     alt={`Retrato ${drawing.id}`}
                     className="card-image"
                   />
