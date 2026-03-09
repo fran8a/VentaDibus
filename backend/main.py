@@ -6,6 +6,8 @@ from app.config.settings import settings
 from app.routes.login import router as auth_router
 from app.routes.dibujos import router as drawing_router
 from app.routes.precios import router as pricing_router
+from app.routes.testimonials import router as testimonial_router
+from app.models.testimonial import Testimonial  # noqa: F401 - needed for table creation
 import os
 
 # Crear tablas
@@ -30,6 +32,7 @@ app.add_middleware(
 app.include_router(auth_router)
 app.include_router(drawing_router)
 app.include_router(pricing_router)
+app.include_router(testimonial_router)
 
 # Crear directorio de uploads si no existe
 os.makedirs("uploads/drawings", exist_ok=True)

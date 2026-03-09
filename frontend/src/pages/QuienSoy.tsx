@@ -23,7 +23,7 @@ const QuienSoy = () => {
           
           <div className="profile-content">
             <h2 className="profile-name">Sabrina Ochoa</h2> 
-            <p className="profile-title">Ilustradora Digital de Mascotas</p>
+            <p className="profile-title">Arquitecta e Ilustradora de Mascotas</p>
             
             <div className="profile-text">
               <p>
@@ -167,9 +167,17 @@ const QuienSoy = () => {
         <div className="contact-cta">
           <h3 className="cta-title">¿Trabajemos Juntos?</h3>
           <p className="cta-text">
-            Estoy emocionada por conocer a tu mascota y crear algo especial juntos
+            Creemos un recuerdo especial juntos
           </p>
-          <button className="cta-button">Comenzar un Proyecto</button>
+          
+          <a 
+            href="https://wa.me/5492966563805?text=Hola%20Sabrii%2C%20quiero%20un%20dibujo%20de%20mi%20mascota%20%3C3%21" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="cta-button"
+          >
+            Contactame
+          </a>
         </div>
       </div>
     </div>

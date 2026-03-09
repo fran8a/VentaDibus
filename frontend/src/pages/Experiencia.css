@@ -338,3 +338,123 @@
     padding: 20px 12px 12px;
   }
 }
+
+/* Add testimonial section */
+.add-testimonial-section {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.btn-add-testimonial {
+  padding: 14px 32px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #8b7765 0%, #6b5d52 100%);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.3px;
+}
+
+.btn-add-testimonial:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(107, 93, 82, 0.3);
+}
+
+/* Loading & empty states */
+.loading-container,
+.empty-container {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.loading-text,
+.empty-text {
+  font-size: 16px;
+  color: #8b7765;
+  font-weight: 300;
+}
+
+/* Admin controls */
+.admin-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f0ebe4;
+}
+
+.btn-visibility,
+.btn-delete-testimonial {
+  background: none;
+  border: 1px solid #e0d5c5;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.btn-visibility:hover {
+  background: #f5f0e8;
+}
+
+.btn-visibility.hidden {
+  opacity: 0.6;
+}
+
+.btn-delete-testimonial:hover {
+  background: #ffeaea;
+  border-color: #f5c6c6;
+}
+
+.hidden-badge {
+  font-size: 11px;
+  background: #f0e0d0;
+  color: #8b7765;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+.testimonio-hidden {
+  opacity: 0.6;
+  border-left-color: #e0d5c5;
+  background: #faf8f5;
+}
+
+/* Avatar placeholder */
+.testimonio-avatar-placeholder {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #d4c4b0 0%, #c9b79c 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 500;
+  color: white;
+  flex-shrink: 0;
+}
+
+/* Empty stars */
+.estrella.empty {
+  color: #e0d5c5;
+}
+
+@media (max-width: 768px) {
+  .btn-add-testimonial {
+    width: 100%;
+    font-size: 15px;
+  }
+
+  .testimonio-avatar-placeholder {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+  }
+}
