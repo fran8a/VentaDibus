@@ -5,7 +5,7 @@ const QuienSoy = () => {
     <div className="quien-soy">
       <header className="page-header">
         <h1 className="page-title">Quién Soy</h1>
-        <p className="page-subtitle">
+        <p >
           La historia detrás de cada trazo
         </p>
       </header>

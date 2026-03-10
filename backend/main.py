@@ -7,7 +7,9 @@ from app.routes.login import router as auth_router
 from app.routes.dibujos import router as drawing_router
 from app.routes.precios import router as pricing_router
 from app.routes.testimonials import router as testimonial_router
-from app.models.testimonial import Testimonial  # noqa: F401 - needed for table creation
+from app.routes.orders import router as orders_router
+from app.models.testimonial import Testimonial  
+from app.models.order import Order 
 import os
 
 # Crear tablas
@@ -33,9 +35,11 @@ app.include_router(auth_router)
 app.include_router(drawing_router)
 app.include_router(pricing_router)
 app.include_router(testimonial_router)
+app.include_router(orders_router)
 
-# Crear directorio de uploads si no existe
+# Crear directorios de uploads si no existen
 os.makedirs("uploads/drawings", exist_ok=True)
+os.makedirs("uploads/orders", exist_ok=True)
 
 # Servir archivos estáticos
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")

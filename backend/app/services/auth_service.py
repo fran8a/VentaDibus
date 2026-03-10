@@ -70,5 +70,4 @@ class AuthService:
             print(f"❌ Usuario no encontrado en la base de datos")
             return None
         
-        print(f"✅ Usuario encontrado: {user.email} (ID: {user.id})")
         return UserResponse.from_orm(user)

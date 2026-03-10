@@ -156,6 +156,16 @@
   animation: fadeIn 0.3s ease;
 }
 
+.nav-divider {
+  height: 1px;
+  background: rgba(139, 119, 101, 0.2);
+  margin: 8px 16px;
+}
+
+.nav-item--admin {
+  opacity: 0.9;
+}
+
 .sidebar-footer {
   padding: 20px;
   border-top: 1px solid rgba(139, 119, 101, 0.1);

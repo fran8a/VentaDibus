@@ -97,7 +97,7 @@ const MisDibujos = () => {
     <div className="mis-dibujos">
       <header className="page-header">
         <h1 className="page-title">Mis Dibujos</h1>
-        <p className="page-subtitle">
+        <p >
           Galería de retratos de mascotas con amor y dedicación
         </p>
       </header>

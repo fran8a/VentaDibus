@@ -11,12 +11,19 @@ const Sidebar = () => {
   const location = useLocation();
   const { user, logout, handleGoogleLogin } = useAuth();
 
+  const ADMIN_EMAIL = 'franochoarodriguez@gmail.com';
+  const isAdmin = user?.email === ADMIN_EMAIL;
+
   const menuItems = [
     { path: '/', label: 'Mis Dibujos', icon: '🎨' },
     { path: '/como-adquirir', label: 'Cómo Adquirir', icon: '📋' },
     { path: '/precios', label: 'Precios', icon: '💰' },
     { path: '/experiencia', label: 'Experiencia', icon: '✨' },
     { path: '/quien-soy', label: 'Quién Soy', icon: '👤' },
+  ];
+
+  const adminMenuItems = [
+    { path: '/pedidos', label: 'Pedidos', icon: '📦' },
   ];
 
   // Check window size and set initial state
@@ -78,6 +85,22 @@ const Sidebar = () => {
             {isOpen && <span className="nav-label">{item.label}</span>}
           </Link>
         ))}
+        {isAdmin && (
+          <>
+            {isOpen && <div className="nav-divider" />}
+            {adminMenuItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`nav-item nav-item--admin ${location.pathname.startsWith(item.path) ? 'active' : ''}`}
+                title={!isOpen ? item.label : ''}
+              >
+                <span className="nav-icon">{item.icon}</span>
+                {isOpen && <span className="nav-label">{item.label}</span>}
+              </Link>
+            ))}
+          </>
+        )}
       </nav>
 
       {isOpen && (

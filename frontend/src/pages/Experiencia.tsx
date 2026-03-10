@@ -89,8 +89,8 @@ const Experiencia = () => {
     <div className="experiencia">
       <header className="page-header">
         <h1 className="page-title">Experiencia</h1>
-        <p className="page-subtitle">
-          Lo que dicen nuestros clientes sobre su experiencia
+        <p>
+          Lo que dicen los clientes sobre su experiencia
         </p>
       </header>
 

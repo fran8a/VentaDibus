@@ -7,6 +7,8 @@ import Precios from './pages/Precios';
 import Experiencia from './pages/Experiencia';
 import QuienSoy from './pages/QuienSoy';
 import AuthSuccess from './pages/AuthSuccess';
+import Pedidos from './pages/Pedidos';
+import PedidoDetalle from './pages/PedidoDetalle';
 import './App.css';
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
               <Route path="/experiencia" element={<Experiencia />} />
               <Route path="/quien-soy" element={<QuienSoy />} />
               <Route path="/auth/success" element={<AuthSuccess />} />
+              <Route path="/pedidos" element={<Pedidos />} />
+              <Route path="/pedidos/:id" element={<PedidoDetalle />} />
             </Routes>
           </main>
         </div>
