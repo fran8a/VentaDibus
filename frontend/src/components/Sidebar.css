@@ -12,6 +12,12 @@
   overflow: hidden;
 }
 
+body.lightbox-open .sidebar,
+body.lightbox-open .hamburger-btn,
+body.lightbox-open .sidebar-overlay {
+  display: none !important;
+}
+
 .sidebar.open {
   width: 280px;
 }

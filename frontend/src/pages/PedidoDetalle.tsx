@@ -10,11 +10,11 @@ import {
   updateOrder,
   deleteOrder,
   quickUpdateOrder,
+  STATIC_BASE_URL,
 } from '../services';
 import './PedidoDetalle.css';
 
 const ADMIN_EMAIL = 'franochoarodriguez@gmail.com';
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL?.replace('/api', '') ?? '';
 
 const PedidoDetalle = () => {
   const { id } = useParams<{ id: string }>();
@@ -31,6 +31,8 @@ const PedidoDetalle = () => {
   const [isUpdatingDelivery, setIsUpdatingDelivery] = useState(false);
   const [deliveryDateInput, setDeliveryDateInput] = useState('');
   const [isEditingDelivery, setIsEditingDelivery] = useState(false);
+  const [isStatusConfirmOpen, setIsStatusConfirmOpen] = useState(false);
+  const [pendingStatus, setPendingStatus] = useState<string | null>(null);
 
   useEffect(() => {
     if (!isAdmin || !token || !id) return;
@@ -41,6 +43,19 @@ const PedidoDetalle = () => {
     setDeliveryDateInput(order?.delivered_date ?? '');
     setIsEditingDelivery(false);
   }, [order?.id]);
+
+  useEffect(() => {
+    const className = 'lightbox-open';
+    if (lightboxImage) {
+      document.body.classList.add(className);
+    } else {
+      document.body.classList.remove(className);
+    }
+
+    return () => {
+      document.body.classList.remove(className);
+    };
+  }, [lightboxImage]);
 
   const fetchOrder = async () => {
     if (!token || !id) return;
@@ -85,6 +100,19 @@ const PedidoDetalle = () => {
     } finally {
       setIsUpdatingStatus(false);
     }
+  };
+
+  const requestQuickStatus = (newStatus: string) => {
+    if (!order || isUpdatingStatus || newStatus === order.status) return;
+    setPendingStatus(newStatus);
+    setIsStatusConfirmOpen(true);
+  };
+
+  const confirmQuickStatus = async () => {
+    if (!pendingStatus) return;
+    setIsStatusConfirmOpen(false);
+    await handleQuickStatus(pendingStatus);
+    setPendingStatus(null);
   };
 
   const handleQuickDeliveredDate = async (dateStr: string | null) => {
@@ -185,7 +213,7 @@ const PedidoDetalle = () => {
                 <button
                   key={key}
                   className={`status-pill status-pill--${key}${order.status === key ? ' status-pill--active' : ''}`}
-                  onClick={() => handleQuickStatus(key)}
+                  onClick={() => requestQuickStatus(key)}
                   disabled={isUpdatingStatus || order.status === key}
                 >
                   {label}
@@ -193,6 +221,37 @@ const PedidoDetalle = () => {
               ))}
               {isUpdatingStatus && <span className="tracking-updating">Guardando…</span>}
             </div>
+
+            {isStatusConfirmOpen && pendingStatus && (
+              <div className="status-confirm-overlay">
+                <div className="status-confirm-modal" role="dialog" aria-modal="true">
+                  <h3 className="status-confirm-title">Confirmar estado</h3>
+                  <p className="status-confirm-text">
+                    ¿Querés cambiar el estado a{' '}
+                    <strong>{ORDER_STATUS_LABELS[pendingStatus] ?? pendingStatus}</strong>?
+                  </p>
+                  <div className="status-confirm-actions">
+                    <button
+                      className="status-confirm-cancel"
+                      onClick={() => {
+                        setIsStatusConfirmOpen(false);
+                        setPendingStatus(null);
+                      }}
+                      disabled={isUpdatingStatus}
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      className="status-confirm-submit"
+                      onClick={confirmQuickStatus}
+                      disabled={isUpdatingStatus}
+                    >
+                      {isUpdatingStatus ? 'Guardando…' : 'Confirmar'}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="tracking-divider" />
@@ -346,10 +405,10 @@ const PedidoDetalle = () => {
                 <div
                   key={i}
                   className="reference-image-wrapper"
-                  onClick={() => setLightboxImage(`${API_BASE_URL}${url}`)}
+                  onClick={() => setLightboxImage(`${STATIC_BASE_URL}${url}`)}
                 >
                   <img
-                    src={`${API_BASE_URL}${url}`}
+                    src={`${STATIC_BASE_URL}${url}`}
                     alt={`Referencia ${i + 1}`}
                     className="reference-image"
                   />

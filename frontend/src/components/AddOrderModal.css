@@ -29,6 +29,7 @@
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   animation: slideUp 0.3s ease;
   overflow: hidden;
+  position: relative;
 }
 
 @keyframes slideUp {
@@ -210,6 +211,84 @@
 
 .btn-submit:disabled,
 .btn-cancel:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.confirm-update-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 5;
+}
+
+.confirm-update-modal {
+  width: 100%;
+  max-width: 360px;
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid #eadfd5;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2);
+  padding: 18px;
+}
+
+.confirm-update-title {
+  margin: 0;
+  font-size: 18px;
+  color: #6b5d52;
+}
+
+.confirm-update-text {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: #7a6859;
+  line-height: 1.4;
+}
+
+.confirm-update-actions {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn-confirm-cancel,
+.btn-confirm-submit {
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.btn-confirm-cancel {
+  background: transparent;
+  color: #8b7765;
+  border: 1.5px solid #c9b8a8;
+}
+
+.btn-confirm-cancel:hover:not(:disabled) {
+  background: #f8f3ee;
+}
+
+.btn-confirm-submit {
+  background: #b8956a;
+  color: #fff;
+  border: 1.5px solid #b8956a;
+}
+
+.btn-confirm-submit:hover:not(:disabled) {
+  background: #a07850;
+  border-color: #a07850;
+}
+
+.btn-confirm-cancel:disabled,
+.btn-confirm-submit:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }

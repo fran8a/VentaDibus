@@ -7,7 +7,8 @@ import {
   getAllDrawings, 
   uploadDrawing, 
   updateDrawing, 
-  deleteDrawing 
+  deleteDrawing,
+  STATIC_BASE_URL,
 } from '../services';
 import './MisDibujos.css';
 
@@ -143,7 +144,7 @@ const MisDibujos = () => {
                   className="card-image-wrapper"
                 >
                   <img 
-                    src={`${import.meta.env.VITE_API_BASE_URL?.replace(/\/api$/, '')}${drawing.image_url}`}
+                    src={`${STATIC_BASE_URL}${drawing.image_url}`}
                     alt={`Retrato ${drawing.id}`}
                     className="card-image"
                   />
@@ -154,7 +155,7 @@ const MisDibujos = () => {
               ) : (
                 <div className="card-image-wrapper">
                   <img 
-                    src={`${import.meta.env.VITE_API_BASE_URL?.replace(/\/api$/, '')}${drawing.image_url}`}
+                    src={`${STATIC_BASE_URL}${drawing.image_url}`}
                     alt={`Retrato ${drawing.id}`}
                     className="card-image"
                   />

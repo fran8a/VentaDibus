@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { STATIC_BASE_URL } from '../services/api';
 import './EditDrawingModal.css';
 
 interface Drawing {
@@ -65,7 +66,7 @@ const EditDrawingModal = ({ isOpen, onClose, onSubmit, drawing }: EditDrawingMod
 
         <div className="edit-modal-body">
           <img 
-            src={`http://localhost:8000${drawing.image_url}`}
+            src={`${STATIC_BASE_URL}${drawing.image_url}`}
             alt="Preview" 
             className="edit-preview-image" 
           />

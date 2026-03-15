@@ -332,6 +332,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  position: relative;
 }
 
 .tracking-label {
@@ -397,6 +398,85 @@
   transform: scale(1.05);
   box-shadow: 0 3px 10px rgba(0,0,0,0.12);
   cursor: default;
+}
+
+.status-confirm-overlay {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  z-index: 3;
+  border-radius: 12px;
+}
+
+.status-confirm-modal {
+  width: 100%;
+  max-width: 340px;
+  background: #fff;
+  border: 1px solid #e8ddd5;
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+  padding: 16px;
+}
+
+.status-confirm-title {
+  margin: 0;
+  font-size: 17px;
+  color: #6b5d52;
+}
+
+.status-confirm-text {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: #7a6859;
+  line-height: 1.4;
+}
+
+.status-confirm-actions {
+  margin-top: 14px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.status-confirm-cancel,
+.status-confirm-submit {
+  padding: 7px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.status-confirm-cancel {
+  border: 1.5px solid #c9b8a8;
+  color: #8b7765;
+  background: transparent;
+}
+
+.status-confirm-cancel:hover:not(:disabled) {
+  background: #f8f3ee;
+}
+
+.status-confirm-submit {
+  border: 1.5px solid #b8956a;
+  background: #b8956a;
+  color: #fff;
+}
+
+.status-confirm-submit:hover:not(:disabled) {
+  background: #a07850;
+  border-color: #a07850;
+}
+
+.status-confirm-cancel:disabled,
+.status-confirm-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* Delivery date controls */

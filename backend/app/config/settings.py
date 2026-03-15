@@ -13,8 +13,8 @@ class Settings(BaseSettings):
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 30
     
-    # Database
-    database_url: str = "sqlite:///./ventadibus.db"
+    # Database (PostgreSQL — set in .env, e.g. Supabase connection string)
+    database_url: str
     
     # CORS
     frontend_url: str = "http://localhost:5173"

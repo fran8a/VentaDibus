@@ -35,6 +35,7 @@ const AddOrderModal = ({ isOpen, onClose, onSubmit, editOrder }: AddOrderModalPr
   const [form, setForm] = useState<OrderFormData>(EMPTY_FORM);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [fileNames, setFileNames] = useState<string[]>([]);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
   useEffect(() => {
     if (editOrder) {
@@ -73,7 +74,7 @@ const AddOrderModal = ({ isOpen, onClose, onSubmit, editOrder }: AddOrderModalPr
     setFileNames(files.map((f) => f.name));
   };
 
-  const handleSubmit = async () => {
+  const validateForm = () => {
     if (
       !form.owner_name ||
       !form.pet_name ||
@@ -84,8 +85,14 @@ const AddOrderModal = ({ isOpen, onClose, onSubmit, editOrder }: AddOrderModalPr
       !form.estimated_delivery_date
     ) {
       alert('Completá todos los campos obligatorios.');
-      return;
+      return false;
     }
+
+    return true;
+  };
+
+  const submitOrder = async () => {
+    setIsConfirmModalOpen(false);
 
     setIsSubmitting(true);
     try {
@@ -100,7 +107,23 @@ const AddOrderModal = ({ isOpen, onClose, onSubmit, editOrder }: AddOrderModalPr
     }
   };
 
+  const handleSubmitClick = async () => {
+    if (!validateForm()) return;
+
+    if (editOrder) {
+      setIsConfirmModalOpen(true);
+      return;
+    }
+
+    await submitOrder();
+  };
+
   const handleClose = () => {
+    if (isConfirmModalOpen) {
+      setIsConfirmModalOpen(false);
+      return;
+    }
+
     if (!isSubmitting) {
       setForm(EMPTY_FORM);
       setFileNames([]);
@@ -271,10 +294,41 @@ const AddOrderModal = ({ isOpen, onClose, onSubmit, editOrder }: AddOrderModalPr
           <button className="btn-cancel" onClick={handleClose} disabled={isSubmitting}>
             Cancelar
           </button>
-          <button className="btn-submit" onClick={handleSubmit} disabled={isSubmitting}>
-            {isSubmitting ? 'Guardando...' : editOrder ? 'Guardar cambios' : 'Crear pedido'}
+          <button className="btn-submit" onClick={handleSubmitClick} disabled={isSubmitting}>
+            {isSubmitting
+              ? 'Guardando...'
+              : editOrder
+                ? 'Confirmar cambios'
+                : 'Crear pedido'}
           </button>
         </div>
+
+        {isConfirmModalOpen && (
+          <div className="confirm-update-overlay">
+            <div className="confirm-update-modal" role="dialog" aria-modal="true">
+              <h3 className="confirm-update-title">Confirmar cambios</h3>
+              <p className="confirm-update-text">
+                ¿Querés guardar los cambios en este pedido?
+              </p>
+              <div className="confirm-update-actions">
+                <button
+                  className="btn-confirm-cancel"
+                  onClick={() => setIsConfirmModalOpen(false)}
+                  disabled={isSubmitting}
+                >
+                  Volver
+                </button>
+                <button
+                  className="btn-confirm-submit"
+                  onClick={submitOrder}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Guardando...' : 'Sí, guardar'}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

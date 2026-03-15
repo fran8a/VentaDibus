@@ -5,9 +5,6 @@ const QuienSoy = () => {
     <div className="quien-soy">
       <header className="page-header">
         <h1 className="page-title">Quién Soy</h1>
-        <p >
-          La historia detrás de cada trazo
-        </p>
       </header>
 
       <div className="about-container">
@@ -170,14 +167,14 @@ const QuienSoy = () => {
             Creemos un recuerdo especial juntos
           </p>
           
-          <a 
-            href="https://wa.me/5492966563805?text=Hola%20Sabrii%2C%20quiero%20un%20dibujo%20de%20mi%20mascota%20%3C3%21" 
+            <a 
+             href="https://wa.me/5492966563805?text=Hola%20Sabrina%2C%20me%20interes%C3%B3%20tu%20perfil..." 
             target="_blank" 
             rel="noopener noreferrer"
             className="cta-button"
-          >
+            >
             Contactame
-          </a>
+            </a>
         </div>
       </div>
     </div>
