@@ -24,7 +24,7 @@ app = FastAPI(
 # Configurar CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[settings.frontend_url, "http://localhost:5173", "http://localhost:5174"],
+    allow_origins=[settings.frontend_url, "http://localhost:5173", "http://localhost:5174", "https://sabdibus.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
