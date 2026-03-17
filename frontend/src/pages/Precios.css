@@ -25,6 +25,21 @@
   border-radius: 25px;
   padding: 40px;
   box-shadow: 0 8px 30px rgba(139, 119, 101, 0.12);
+  overflow: hidden;
+}
+
+.pricing-table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-mobile-hint {
+  display: none;
+  margin: 12px 0 0;
+  text-align: center;
+  font-size: 13px;
+  color: #8b7765;
 }
 
 .pricing-admin-bar {
@@ -54,6 +69,7 @@
 
 .pricing-table {
   width: 100%;
+  min-width: 620px;
   border-collapse: collapse;
   background: linear-gradient(135deg, #d4a59a 0%, #c9a99e 100%);
   border-radius: 20px;
@@ -199,6 +215,7 @@
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px;
   margin-top: 60px;
+  align-items: stretch;
 }
 
 .info-card {
@@ -237,6 +254,7 @@
   margin: 0;
   font-weight: 300;
   text-align: center;
+  overflow-wrap: anywhere;
 }
 
 .info-text strong {
@@ -263,6 +281,7 @@
   margin: 8px 0;
   text-align: center;
   font-weight: 300;
+  overflow-wrap: anywhere;
 }
 
 .contact-detail a {
@@ -288,121 +307,118 @@
   }
 }
 
-@media (max-width: 1200px) {
-  .pricing-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .pricing-card.destacado {
-    transform: scale(1.02);
-  }
-}
-
-@media (max-width: 968px) {
-  .pricing-card.destacado {
-    transform: scale(1);
-  }
-  
-  .pricing-card.destacado:hover {
-    transform: translateY(-10px);
-  }
-}
-
 @media (max-width: 768px) {
   .precios {
-    padding: 20px 16px;
+    padding: 20px 14px;
   }
-  
-  .pricing-container {
-    grid-template-columns: 1fr;
-    gap: 24px;
+
+  .page-header {
+    margin-bottom: 30px;
   }
-  
-  .pricing-card {
-    padding: 32px 24px;
+
+  .page-title {
+    font-size: 30px;
+    line-height: 1.2;
   }
-  
-  .plan-nombre {
-    font-size: 24px;
+
+  .pricing-table-container {
+    padding: 16px;
+    margin: 0 auto 36px;
+    border-radius: 18px;
   }
-  
-  .precio-numero {
-    font-size: 48px;
+
+  .pricing-admin-bar {
+    justify-content: center;
   }
-  
-  .plan-descripcion {
+
+  .btn-edit-prices {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .pricing-table {
+    min-width: 560px;
+  }
+
+  .pricing-table th {
+    padding: 14px 12px;
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+
+  .pricing-table td {
+    padding: 14px 12px;
     font-size: 15px;
   }
-  
-  .caracteristica-item {
-    font-size: 14px;
+
+  .medida {
+    font-size: 16px;
   }
-  
+
+  .precio {
+    font-size: 15px;
+  }
+
+  .table-mobile-hint {
+    display: block;
+  }
+
   .additional-info {
     grid-template-columns: 1fr;
-    gap: 24px;
-    margin-top: 40px;
+    gap: 16px;
+    margin-top: 28px;
   }
-  
+
   .info-card {
-    padding: 32px 24px;
+    padding: 24px 18px;
+    border-radius: 16px;
   }
-  
+
   .info-title {
-    font-size: 20px;
+    font-size: 16px;
   }
-  
+
   .info-text {
     font-size: 15px;
+    line-height: 1.6;
   }
 }
 
 @media (max-width: 480px) {
   .precios {
-    padding: 16px 12px;
+    padding: 16px 10px;
   }
-  
-  .pricing-card {
-    padding: 28px 20px;
+
+  .page-title {
+    font-size: 26px;
   }
-  
-  .plan-nombre {
-    font-size: 22px;
+
+  .pricing-table-container {
+    padding: 12px;
   }
-  
-  .precio-numero {
-    font-size: 40px;
+
+  .pricing-table {
+    min-width: 520px;
   }
-  
-  .plan-descripcion {
-    font-size: 14px;
-    margin-bottom: 24px;
-  }
-  
-  .caracteristica-item {
-    font-size: 13px;
-    padding: 10px 0;
-  }
-  
-  .plan-button {
-    padding: 14px 28px;
-    font-size: 15px;
-  }
-  
+
   .info-card {
-    padding: 28px 20px;
+    padding: 20px 14px;
   }
-  
+
   .info-title {
-    font-size: 18px;
+    font-size: 15px;
+    letter-spacing: 0.6px;
   }
-  
+
   .info-text {
     font-size: 14px;
   }
-  
-  .badge {
-    font-size: 12px;
-    padding: 6px 18px;
+
+  .contact-name {
+    font-size: 18px;
+  }
+
+  .contact-detail {
+    font-size: 13px;
   }
 }

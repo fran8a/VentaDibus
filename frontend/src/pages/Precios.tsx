@@ -56,37 +56,40 @@ const Precios = () => {
               </button>
             </div>
           )}
-          <table className="pricing-table">
-            <thead>
-              <tr>
-                <th className="col-medidas">MEDIDAS</th>
-                <th className="col-estilo">ESTILO</th>
-                <th className="col-precio">SIN CUADRO</th>
-                <th className="col-precio">CON CUADRO</th>
-              </tr>
-            </thead>
-            <tbody>
-              {sizes.map(size => {
-                const items = groupedPricing[size] || [];
-                return items.map((item, idx) => (
-                  <tr key={item.id}>
-                    {idx === 0 && (
-                      <td className="medida" rowSpan={items.length}>
-                        {item.size.replace('x', ' x ')}
+          <div className="pricing-table-scroll">
+            <table className="pricing-table">
+              <thead>
+                <tr>
+                  <th className="col-medidas">MEDIDAS</th>
+                  <th className="col-estilo">ESTILO</th>
+                  <th className="col-precio">SIN CUADRO</th>
+                  <th className="col-precio">CON CUADRO</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sizes.map(size => {
+                  const items = groupedPricing[size] || [];
+                  return items.map((item, idx) => (
+                    <tr key={item.id}>
+                      {idx === 0 && (
+                        <td className="medida" rowSpan={items.length}>
+                          {item.size.replace('x', ' x ')}
+                        </td>
+                      )}
+                      <td className="estilo">{item.style}</td>
+                      <td className="precio">
+                        {`$${item.price_without_frame.toLocaleString()}`}
                       </td>
-                    )}
-                    <td className="estilo">{item.style}</td>
-                    <td className="precio">
-                      {`$${item.price_without_frame.toLocaleString()}`}
-                    </td>
-                    <td className="precio">
-                      {`$${item.price_with_frame.toLocaleString()}`}
-                    </td>
-                  </tr>
-                ));
-              })}
-            </tbody>
-          </table>
+                      <td className="precio">
+                        {`$${item.price_with_frame.toLocaleString()}`}
+                      </td>
+                    </tr>
+                  ));
+                })}
+              </tbody>
+            </table>
+          </div>
+          <p className="table-mobile-hint">Desliza horizontalmente para ver toda la tabla en celular.</p>
         </div>
       )}
 
