@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import { useAuth } from '../context/AuthContext';
+import { isAdminEmail } from '../config/admin';
 import './Sidebar.css';
 
 const Sidebar = () => {
@@ -11,8 +12,7 @@ const Sidebar = () => {
   const location = useLocation();
   const { user, logout, handleGoogleLogin } = useAuth();
 
-  const ADMIN_EMAIL = 'franochoarodriguez@gmail.com';
-  const isAdmin = user?.email === ADMIN_EMAIL;
+  const isAdmin = isAdminEmail(user?.email);
 
   const menuItems = [
     { path: '/', label: 'Mis Dibujos', icon: '🎨' },

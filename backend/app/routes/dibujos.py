@@ -1,21 +1,16 @@
 from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File, Form
 from sqlalchemy.orm import Session
 from app.config.database import get_db
+from app.config.settings import settings
 from app.schemas.dibujos import DrawingCreate, DrawingResponse
 from app.repositories.drawing_repository import DrawingRepository
 from app.services.auth_service import AuthService
+from app.services.media_storage_service import save_upload_file, delete_uploaded_file
 from fastapi.security import OAuth2PasswordBearer
 from typing import List, Optional
-import shutil
-import os
-from pathlib import Path
 
 router = APIRouter(prefix="/api/drawings", tags=["Drawings"])
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token", auto_error=False)
-
-ADMIN_EMAIL = "franochoarodriguez@gmail.com"
-UPLOAD_DIR = Path("uploads/drawings")
-UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def get_current_user_from_token(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
@@ -40,7 +35,7 @@ def get_current_user_from_token(token: str = Depends(oauth2_scheme), db: Session
 
 def verify_admin(user = Depends(get_current_user_from_token)):
     """Verificar que el usuario sea admin"""
-    if user.email != ADMIN_EMAIL:
+    if user.email.lower() not in settings.admin_emails_list:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Not authorized to perform this action"
@@ -65,26 +60,24 @@ async def upload_drawing(
 ):
     """Subir un nuevo dibujo (solo admin)"""
     # Validar tipo de archivo
-    if not file.content_type.startswith("image/"):
+    if not file.content_type or not file.content_type.startswith("image/"):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="File must be an image"
         )
-    
-    
-    # Generar nombre único para el archivo
-    file_extension = os.path.splitext(file.filename)[1]
-    file_name = f"{user.id}_{file.filename}"
-    file_path = UPLOAD_DIR / file_name
-    
-    # Guardar archivo
-    with file_path.open("wb") as buffer:
-        shutil.copyfileobj(file.file, buffer)
+
+    try:
+        image_url = save_upload_file(file, "drawings", prefix=str(user.id))
+    except RuntimeError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Could not save uploaded image: {exc}"
+        ) from exc
     
     # Crear registro en la base de datos
     drawing_repo = DrawingRepository(db)
     drawing_data = DrawingCreate(
-        image_url=f"/uploads/drawings/{file_name}",
+        image_url=image_url,
         instagram_link=instagram_link if instagram_link and instagram_link.strip() else None
     )
     
@@ -109,10 +102,8 @@ async def delete_drawing(
             detail="Drawing not found"
         )
     
-    # Eliminar archivo físico
-    file_path = Path(".") / drawing.image_url.lstrip("/")
-    if file_path.exists():
-        file_path.unlink()
+    # Eliminar archivo físico o remoto
+    delete_uploaded_file(drawing.image_url)
     
     # Eliminar de la base de datos
     drawing_repo.delete(drawing_id)

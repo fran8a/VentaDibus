@@ -18,6 +18,24 @@ class Settings(BaseSettings):
     
     # CORS
     frontend_url: str = "http://localhost:5173"
+
+    # Media storage
+    media_storage_mode: str = "local"  # local | supabase
+    public_base_url: Optional[str] = None
+    supabase_url: Optional[str] = None
+    supabase_service_role_key: Optional[str] = None
+    supabase_storage_bucket: str = "retratos"  
+
+    # Admins
+    admin_emails: str
+
+    @property
+    def admin_emails_list(self) -> set[str]:
+        return {
+            email.strip().lower()
+            for email in self.admin_emails.split(",")
+            if email.strip()
+        }
     
     class Config:
         env_file = ".env"

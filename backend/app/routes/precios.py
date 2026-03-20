@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, Body, status
 from sqlalchemy.orm import Session
 from typing import List, Dict, Any
 from app.config.database import get_db
+from app.config.settings import settings
 from app.schemas.precios import PricingResponse, PricingCreate, PricingUpdate
 from app.repositories.pricing_repository import PricingRepository
 from app.services.auth_service import AuthService
@@ -9,8 +10,6 @@ from fastapi.security import OAuth2PasswordBearer
 
 router = APIRouter(prefix="/api/pricing", tags=["pricing"])
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token", auto_error=False)
-
-ADMIN_EMAIL = "franochoarodriguez@gmail.com"
 
 def get_current_user_from_token(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     """Obtener usuario actual desde token"""
@@ -33,7 +32,7 @@ def get_current_user_from_token(token: str = Depends(oauth2_scheme), db: Session
 
 def verify_admin(user = Depends(get_current_user_from_token)):
     """Verificar que el usuario sea admin"""
-    if user.email != ADMIN_EMAIL:
+    if user.email.lower() not in settings.admin_emails_list:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Not authorized to perform this action"

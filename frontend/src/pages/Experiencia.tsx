@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { isAdminEmail } from '../config/admin';
 import {
   getPublicTestimonials,
   getAllTestimonials,
@@ -12,11 +13,9 @@ import type { Testimonial } from '../services/testimonialService';
 import TestimonialModal from '../components/TestimonialModal';
 import './Experiencia.css';
 
-const ADMIN_EMAIL = 'franochoarodriguez@gmail.com';
-
 const Experiencia = () => {
   const { user, token } = useAuth();
-  const isAdmin = user?.email === ADMIN_EMAIL;
+  const isAdmin = isAdminEmail(user?.email);
 
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [myTestimonial, setMyTestimonial] = useState<Testimonial | null>(null);

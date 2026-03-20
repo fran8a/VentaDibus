@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { isAdminEmail } from '../config/admin';
 import AddOrderModal from '../components/AddOrderModal';
 import {
   type OrderListItem,
@@ -12,12 +13,10 @@ import {
 } from '../services';
 import './Pedidos.css';
 
-const ADMIN_EMAIL = 'franochoarodriguez@gmail.com';
-
 const Pedidos = () => {
   const { user, token } = useAuth();
   const navigate = useNavigate();
-  const isAdmin = user?.email === ADMIN_EMAIL;
+  const isAdmin = isAdminEmail(user?.email);
 
   const [orders, setOrders] = useState<OrderListItem[]>([]);
   const [page, setPage] = useState(1);

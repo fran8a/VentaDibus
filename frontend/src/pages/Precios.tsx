@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { isAdminEmail } from '../config/admin';
 import EditPricingModal from '../components/EditPricingModal';
 import { type Pricing, getAllPricing } from '../services';
 import './Precios.css';
@@ -10,8 +11,7 @@ const Precios = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
-  const ADMIN_EMAIL = 'franochoarodriguez@gmail.com';
-  const isAdmin = user?.email === ADMIN_EMAIL;
+  const isAdmin = isAdminEmail(user?.email);
 
   useEffect(() => {
     fetchPricing();

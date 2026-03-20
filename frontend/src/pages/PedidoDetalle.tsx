@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { isAdminEmail } from '../config/admin';
 import AddOrderModal from '../components/AddOrderModal';
 import {
   type Order,
@@ -10,17 +11,15 @@ import {
   updateOrder,
   deleteOrder,
   quickUpdateOrder,
-  STATIC_BASE_URL,
+  resolveMediaUrl,
 } from '../services';
 import './PedidoDetalle.css';
-
-const ADMIN_EMAIL = 'franochoarodriguez@gmail.com';
 
 const PedidoDetalle = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { user, token } = useAuth();
-  const isAdmin = user?.email === ADMIN_EMAIL;
+  const isAdmin = isAdminEmail(user?.email);
 
   const [order, setOrder] = useState<Order | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -405,10 +404,10 @@ const PedidoDetalle = () => {
                 <div
                   key={i}
                   className="reference-image-wrapper"
-                  onClick={() => setLightboxImage(`${STATIC_BASE_URL}${url}`)}
+                  onClick={() => setLightboxImage(resolveMediaUrl(url))}
                 >
                   <img
-                    src={`${STATIC_BASE_URL}${url}`}
+                    src={resolveMediaUrl(url)}
                     alt={`Referencia ${i + 1}`}
                     className="reference-image"
                   />

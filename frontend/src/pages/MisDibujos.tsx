@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { isAdminEmail } from '../config/admin';
 import AddDrawingModal from '../components/AddDrawingModal';
 import EditDrawingModal from '../components/EditDrawingModal';
 import { 
@@ -8,7 +9,7 @@ import {
   uploadDrawing, 
   updateDrawing, 
   deleteDrawing,
-  STATIC_BASE_URL,
+  resolveMediaUrl,
 } from '../services';
 import './MisDibujos.css';
 
@@ -20,8 +21,7 @@ const MisDibujos = () => {
   const [selectedDrawing, setSelectedDrawing] = useState<Drawing | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   
-  const ADMIN_EMAIL = 'franochoarodriguez@gmail.com';
-  const isAdmin = user?.email === ADMIN_EMAIL;
+  const isAdmin = isAdminEmail(user?.email);
 
   // Cargar dibujos desde el backend
   useEffect(() => {
@@ -144,7 +144,7 @@ const MisDibujos = () => {
                   className="card-image-wrapper"
                 >
                   <img 
-                    src={`${STATIC_BASE_URL}${drawing.image_url}`}
+                    src={resolveMediaUrl(drawing.image_url)}
                     alt={`Retrato ${drawing.id}`}
                     className="card-image"
                   />
@@ -155,7 +155,7 @@ const MisDibujos = () => {
               ) : (
                 <div className="card-image-wrapper">
                   <img 
-                    src={`${STATIC_BASE_URL}${drawing.image_url}`}
+                    src={resolveMediaUrl(drawing.image_url)}
                     alt={`Retrato ${drawing.id}`}
                     className="card-image"
                   />

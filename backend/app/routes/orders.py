@@ -1,23 +1,18 @@
 from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File, Form, Query, Request
 from sqlalchemy.orm import Session
 from app.config.database import get_db
+from app.config.settings import settings
 from app.schemas.orders import OrderResponse, OrderListItem, PaginatedOrders, OrderCreate, OrderUpdate
 from app.repositories.order_repository import OrderRepository
 from app.services.auth_service import AuthService
+from app.services.media_storage_service import save_upload_file
 from fastapi.security import OAuth2PasswordBearer
 from typing import List, Optional
-import shutil
-import os
 import math
-from pathlib import Path
 from datetime import date as date_type
 
 router = APIRouter(prefix="/api/orders", tags=["Orders"])
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token", auto_error=False)
-
-ADMIN_EMAIL = "franochoarodriguez@gmail.com"
-UPLOAD_DIR = Path("uploads/orders")
-UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
 
 def get_current_user_from_token(
@@ -39,7 +34,7 @@ def get_current_user_from_token(
 
 
 def verify_admin(user=Depends(get_current_user_from_token)):
-    if user.email != ADMIN_EMAIL:
+    if user.email.lower() not in settings.admin_emails_list:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Not authorized to perform this action",
@@ -112,12 +107,9 @@ async def create_order(
     if reference_files:
         for file in reference_files:
             if file and file.filename and file.content_type and file.content_type.startswith("image/"):
-                safe_name = os.path.basename(file.filename)
-                file_name = f"{order_date}_{user.id}_{safe_name}"
-                file_path = UPLOAD_DIR / file_name
-                with open(file_path, "wb") as buffer:
-                    shutil.copyfileobj(file.file, buffer)
-                image_urls.append(f"/uploads/orders/{file_name}")
+                image_urls.append(
+                    save_upload_file(file, "orders", prefix=f"{order_date}_{user.id}")
+                )
 
     order_data = OrderCreate(
         owner_name=owner_name,
@@ -169,12 +161,9 @@ async def update_order(
         if valid_files:
             new_images = []
             for file in valid_files:
-                safe_name = os.path.basename(file.filename)
-                file_name = f"{order_id}_{user.id}_{safe_name}"
-                file_path = UPLOAD_DIR / file_name
-                with open(file_path, "wb") as buffer:
-                    shutil.copyfileobj(file.file, buffer)
-                new_images.append(f"/uploads/orders/{file_name}")
+                new_images.append(
+                    save_upload_file(file, "orders", prefix=f"{order_id}_{user.id}")
+                )
 
     order_data = OrderUpdate(
         owner_name=owner_name,
