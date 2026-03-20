@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Sidebar from './components/Sidebar';
+import HeroPage from './pages/HeroPage';
 import MisDibujos from './pages/MisDibujos';
 import ComoAdquirir from './pages/ComoAdquirir';
 import Precios from './pages/Precios';
@@ -19,7 +20,8 @@ function App() {
           <Sidebar />
           <main className="main-content">
             <Routes>
-              <Route path="/" element={<MisDibujos />} />
+              <Route path="/" element={<HeroPage />} />
+              <Route path="/dibujos" element={<MisDibujos />} />
               <Route path="/como-adquirir" element={<ComoAdquirir />} />
               <Route path="/precios" element={<Precios />} />
               <Route path="/experiencia" element={<Experiencia />} />

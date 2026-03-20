@@ -10,6 +10,9 @@ const Precios = () => {
   const [pricingData, setPricingData] = useState<Pricing[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedSize, setSelectedSize] = useState('15x21');
+  const [selectedStyle, setSelectedStyle] = useState('Blanco y negro');
+  const [withFrame, setWithFrame] = useState(false);
 
   const isAdmin = isAdminEmail(user?.email);
 
@@ -38,6 +41,30 @@ const Precios = () => {
   }, {} as Record<string, Pricing[]>);
 
   const sizes = ['15x21', '20x30', '30x40'];
+  const sizeLabels: Record<string, string> = {
+    '15x21': 'Pequeño 15 x 21',
+    '20x30': 'Mediano 20 x 30',
+    '30x40': 'Grande 30 x 40',
+  };
+  const styles = ['Blanco y negro', 'Color'];
+
+  const selectedPricing = pricingData.find(
+    (item) => item.size === selectedSize && item.style.toLowerCase() === selectedStyle.toLowerCase()
+  );
+  const estimatedPrice = selectedPricing
+    ? withFrame
+      ? selectedPricing.price_with_frame
+      : selectedPricing.price_without_frame
+    : null;
+
+  const handleOrderCTA = () => {
+    const message = encodeURIComponent(
+      `Hola Sabri, quiero encargar este retrato: ${sizeLabels[selectedSize]}, ${selectedStyle}${
+        withFrame ? ', con cuadro' : ', sin cuadro'
+      }.`
+    );
+    window.open(`https://wa.me/5492966563805?text=${message}`, '_blank', 'noopener,noreferrer');
+  };
 
   return (
     <div className="precios">
@@ -48,49 +75,118 @@ const Precios = () => {
       {isLoading ? (
         <div className="loading">Cargando precios...</div>
       ) : (
-        <div className="pricing-table-container">
-          {isAdmin && (
-            <div className="pricing-admin-bar">
-              <button className="btn-edit-prices" onClick={() => setIsEditModalOpen(true)}>
-                ✏️ Editar Precios
-              </button>
-            </div>
-          )}
-          <div className="pricing-table-scroll">
-            <table className="pricing-table">
-              <thead>
-                <tr>
-                  <th className="col-medidas">MEDIDAS</th>
-                  <th className="col-estilo">ESTILO</th>
-                  <th className="col-precio">SIN CUADRO</th>
-                  <th className="col-precio">CON CUADRO</th>
-                </tr>
-              </thead>
-              <tbody>
-                {sizes.map(size => {
-                  const items = groupedPricing[size] || [];
-                  return items.map((item, idx) => (
-                    <tr key={item.id}>
-                      {idx === 0 && (
-                        <td className="medida" rowSpan={items.length}>
-                          {item.size.replace('x', ' x ')}
-                        </td>
-                      )}
-                      <td className="estilo">{item.style}</td>
-                      <td className="precio">
-                        {`$${item.price_without_frame.toLocaleString()}`}
-                      </td>
-                      <td className="precio">
-                        {`$${item.price_with_frame.toLocaleString()}`}
-                      </td>
+        <>
+          {isAdmin ? (
+            <div className="pricing-table-container">
+              <div className="pricing-admin-bar">
+                <button className="btn-edit-prices" onClick={() => setIsEditModalOpen(true)}>
+                  ✏️ Editar Precios
+                </button>
+              </div>
+              <div className="pricing-table-scroll">
+                <table className="pricing-table">
+                  <thead>
+                    <tr>
+                      <th className="col-medidas">MEDIDAS</th>
+                      <th className="col-estilo">ESTILO</th>
+                      <th className="col-precio">SIN CUADRO</th>
+                      <th className="col-precio">CON CUADRO</th>
                     </tr>
-                  ));
-                })}
-              </tbody>
-            </table>
-          </div>
-          <p className="table-mobile-hint">Desliza horizontalmente para ver toda la tabla en celular.</p>
-        </div>
+                  </thead>
+                  <tbody>
+                    {sizes.map(size => {
+                      const items = groupedPricing[size] || [];
+                      return items.map((item, idx) => (
+                        <tr key={item.id}>
+                          {idx === 0 && (
+                            <td className="medida" rowSpan={items.length}>
+                              {item.size.replace('x', ' x ')}
+                            </td>
+                          )}
+                          <td className="estilo">{item.style}</td>
+                          <td className="precio">
+                            {`$${item.price_without_frame.toLocaleString()}`}
+                          </td>
+                          <td className="precio">
+                            {`$${item.price_with_frame.toLocaleString()}`}
+                          </td>
+                        </tr>
+                      ));
+                    })}
+                  </tbody>
+                </table>
+              </div>
+              <p className="table-mobile-hint">Desliza horizontalmente para ver toda la tabla en celular.</p>
+            </div>
+          ) : (
+            <section className="pricing-simulator-container" aria-label="Simulador de precio de retratos">
+              <p className="simulator-kicker">Precio estimado</p>
+              <h2 className="simulator-title">Simula tu retrato ideal</h2>
+              <p className="simulator-subtitle">
+                Elegi tamano, estilo y si lo queres con cuadro para ver el valor actualizado al instante.
+              </p>
+
+              <div className="simulator-price-box" aria-live="polite">
+                <span className="simulator-price-label">Tu retrato</span>
+                <strong className="simulator-price-value">
+                  {estimatedPrice !== null ? `$${estimatedPrice.toLocaleString()}` : 'No disponible'}
+                </strong>
+              </div>
+
+              <div className="simulator-field">
+                <h3 className="simulator-field-title">1. Tamano</h3>
+                <div className="simulator-size-grid">
+                  {sizes.map((size) => (
+                    <button
+                      key={size}
+                      type="button"
+                      className={`simulator-option-btn ${selectedSize === size ? 'selected' : ''}`}
+                      onClick={() => setSelectedSize(size)}
+                    >
+                      {sizeLabels[size]}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="simulator-field">
+                <h3 className="simulator-field-title">2. Estilo</h3>
+                <div className="simulator-style-grid">
+                  {styles.map((style) => (
+                    <button
+                      key={style}
+                      type="button"
+                      className={`simulator-option-btn ${selectedStyle === style ? 'selected' : ''}`}
+                      onClick={() => setSelectedStyle(style)}
+                    >
+                      {style}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="simulator-frame-row">
+                <div>
+                  <p className="simulator-frame-title">3. Con cuadro</p>
+                  <p className="simulator-frame-subtitle">Activalo si queres recibirlo listo para colgar.</p>
+                </div>
+                <label className="frame-switch" htmlFor="frame-toggle">
+                  <input
+                    id="frame-toggle"
+                    type="checkbox"
+                    checked={withFrame}
+                    onChange={(event) => setWithFrame(event.target.checked)}
+                  />
+                  <span className="frame-switch-slider" />
+                </label>
+              </div>
+
+              <button type="button" className="simulator-cta" onClick={handleOrderCTA}>
+                Quiero encargar este retrato
+              </button>
+            </section>
+          )}
+        </>
       )}
 
       {isAdmin && token && (
@@ -131,6 +227,7 @@ const Precios = () => {
         </div>
 
         <div className="info-card contact-info">
+          <div className="info-icon">👤</div>
           <h3 className="contact-name">Sabrina Ochoa Rodriguez</h3>
           <p className="contact-detail">
             <a href="https://www.instagram.com/sabdibus_/" target="_blank" rel="noopener noreferrer">

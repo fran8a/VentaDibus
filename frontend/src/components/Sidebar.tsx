@@ -15,7 +15,8 @@ const Sidebar = () => {
   const isAdmin = isAdminEmail(user?.email);
 
   const menuItems = [
-    { path: '/', label: 'Mis Dibujos', icon: '🎨' },
+    { path: '/', label: 'Inicio', icon: '🏠' },
+    { path: '/dibujos', label: 'Mis Dibujos', icon: '🎨' },
     { path: '/como-adquirir', label: 'Cómo Adquirir', icon: '📋' },
     { path: '/precios', label: 'Precios', icon: '💰' },
     { path: '/experiencia', label: 'Experiencia', icon: '✨' },
@@ -44,7 +45,11 @@ const Sidebar = () => {
   // Close sidebar when route changes on mobile
   useEffect(() => {
     if (window.innerWidth <= 768) {
-      setIsOpen(false);
+      const frameId = window.requestAnimationFrame(() => {
+        setIsOpen(false);
+      });
+
+      return () => window.cancelAnimationFrame(frameId);
     }
   }, [location]);
 
