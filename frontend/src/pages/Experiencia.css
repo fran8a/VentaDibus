@@ -5,6 +5,29 @@
   animation: fadeInUp 0.6s ease;
 }
 
+.page-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.page-title {
+  font-size: 42px;
+  font-weight: 300;
+  color: #6b5d52;
+  margin: 0 0 14px;
+  letter-spacing: 1px;
+}
+
+.page-header p {
+  font-size: 18px;
+  color: #8b7765;
+  font-weight: 300;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+  text-align: center;
+}
+
 .stats-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -193,6 +216,18 @@
   .experiencia {
     padding: 20px 16px;
   }
+
+  .page-header {
+    margin-bottom: 30px;
+  }
+
+  .page-title {
+    font-size: 32px;
+  }
+
+  .page-header p {
+    font-size: 16px;
+  }
   
   .stats-container {
     grid-template-columns: repeat(2, 1fr);
@@ -266,6 +301,14 @@
 @media (max-width: 480px) {
   .experiencia {
     padding: 16px 12px;
+  }
+
+  .page-title {
+    font-size: 28px;
+  }
+
+  .page-header p {
+    font-size: 14px;
   }
   
   .stats-container {

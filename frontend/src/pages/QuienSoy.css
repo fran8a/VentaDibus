@@ -5,6 +5,20 @@
   animation: fadeInUp 0.6s ease;
 }
 
+.page-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.page-title {
+  font-size: 48px;
+  font-weight: 300;
+  color: #6b5d52;
+  margin: 0;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
 .about-container {
   margin-top: 50px;
 }

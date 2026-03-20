@@ -12,12 +12,14 @@
 
 .page-header {
   margin-bottom: 36px;
+  text-align: center;
 }
 
 .page-header-top {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   gap: 16px;
   flex-wrap: wrap;
 }
@@ -28,18 +30,19 @@
   color: #6b5d52;
   margin: 0 0 8px;
   letter-spacing: 1px;
-  text-align: left;
+  text-align: center;
 }
 
 .page-subtitle {
   font-size: 16px;
   color: #8b7765;
   font-weight: 300;
-  margin: 0 0 0 2px;
+  margin: 0;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
-  text-align: left;
+  text-align: center;
 }
 
 .total-badge {

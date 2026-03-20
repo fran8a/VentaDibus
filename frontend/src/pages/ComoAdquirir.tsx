@@ -66,7 +66,7 @@ const ComoAdquirir = () => {
     <div className="como-adquirir">
       <header className="page-header">
         <h1 className="page-title">Cómo Encargar tu Dibujo</h1>
-        <p >
+        <p className="page-description">
           Es súper simple crear el retrato perfecto de tu mascota
         </p>
       </header>

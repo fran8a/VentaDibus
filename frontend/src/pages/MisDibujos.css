@@ -10,9 +10,9 @@
   color: #8b7765;
   font-weight: 300;
   max-width: 600px;
-  margin: 0;
+  margin: 0 auto;
   line-height: 1.6;
-  text-align: left;
+  text-align: center;
 }
 
 .page-header {
