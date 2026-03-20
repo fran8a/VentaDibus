@@ -1,7 +1,7 @@
 const ADMIN_EMAILS = (import.meta.env.VITE_ADMIN_EMAILS ?? '')
   .split(',')
-  .map((email) => email.trim().toLowerCase())
-  .filter(Boolean);
+  .map((email: string) => email.trim().toLowerCase())
+  .filter((email: string) => Boolean(email));
 
 export const isAdminEmail = (email?: string | null): boolean => {
   if (!email) {
