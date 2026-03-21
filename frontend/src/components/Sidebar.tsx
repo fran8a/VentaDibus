@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
+import { Home, GalleryHorizontal, ClipboardList, Tag, Star, User, Package } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { isAdminEmail } from '../config/admin';
 import './Sidebar.css';
@@ -15,16 +16,16 @@ const Sidebar = () => {
   const isAdmin = isAdminEmail(user?.email);
 
   const menuItems = [
-    { path: '/', label: 'Inicio', icon: '🏠' },
-    { path: '/dibujos', label: 'Mis Dibujos', icon: '🎨' },
-    { path: '/como-adquirir', label: 'Cómo Adquirir', icon: '📋' },
-    { path: '/precios', label: 'Precios', icon: '💰' },
-    { path: '/experiencia', label: 'Experiencia', icon: '✨' },
-    { path: '/quien-soy', label: 'Quién Soy', icon: '👤' },
+    { path: '/', label: 'Inicio', icon: Home },
+    { path: '/dibujos', label: 'Mis Dibujos', icon: GalleryHorizontal },
+    { path: '/como-adquirir', label: 'Cómo Adquirir', icon: ClipboardList },
+    { path: '/precios', label: 'Precios', icon: Tag },
+    { path: '/experiencia', label: 'Experiencia', icon: Star },
+    { path: '/quien-soy', label: 'Quién Soy', icon: User },
   ];
 
   const adminMenuItems = [
-    { path: '/pedidos', label: 'Pedidos', icon: '📦' },
+    { path: '/pedidos', label: 'Pedidos', icon: Package },
   ];
 
   // Check window size and set initial state
@@ -86,7 +87,7 @@ const Sidebar = () => {
             className={`nav-item ${location.pathname === item.path ? 'active' : ''}`}
             title={!isOpen ? item.label : ''}
           >
-            <span className="nav-icon">{item.icon}</span>
+            <span className="nav-icon"><item.icon size={18} strokeWidth={1.5} /></span>
             {isOpen && <span className="nav-label">{item.label}</span>}
           </Link>
         ))}
@@ -100,7 +101,7 @@ const Sidebar = () => {
                 className={`nav-item nav-item--admin ${location.pathname.startsWith(item.path) ? 'active' : ''}`}
                 title={!isOpen ? item.label : ''}
               >
-                <span className="nav-icon">{item.icon}</span>
+                <span className="nav-icon"><item.icon size={18} strokeWidth={1.5} /></span>
                 {isOpen && <span className="nav-label">{item.label}</span>}
               </Link>
             ))}
