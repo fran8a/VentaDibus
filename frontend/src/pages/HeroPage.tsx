@@ -5,9 +5,10 @@ import './HeroPage.css';
 
 const HeroPage = () => {
   const [galleryPreview, setGalleryPreview] = useState<Drawing[] | null>(null);
+  const [isGalleryLoading, setIsGalleryLoading] = useState(true);
 
   useEffect(() => {
-    const loadGalleryPreview = async () => {
+    const loadHeroData = async () => {
       try {
         const drawings = await getAllDrawings();
         const firstThree = drawings.slice(0, 3);
@@ -15,15 +16,16 @@ const HeroPage = () => {
       } catch (error) {
         console.error('Error loading hero gallery preview:', error);
         setGalleryPreview(null);
+      } finally {
+        setIsGalleryLoading(false);
       }
     };
 
-    loadGalleryPreview();
+    // Esta unica llamada cumple warm-up del backend y preview de Home.
+    void loadHeroData();
   }, []);
 
-  const featuredImage = galleryPreview?.[0]?.image_url
-    ? resolveMediaUrl(galleryPreview[0].image_url)
-    : null;
+  const featuredImage = '/retratoDestacado.jpg';
 
   return (
     <div className="hero-page">
@@ -40,11 +42,7 @@ const HeroPage = () => {
         </div>
 
         <div className="hero-image-wrap" aria-hidden="true">
-          {featuredImage ? (
-            <img src={featuredImage} alt="Retrato destacado de mascota" className="hero-image" />
-          ) : (
-            <div className="hero-image-fallback">Retrato destacado</div>
-          )}
+          <img src={featuredImage} alt="Retrato destacado de mascota" className="hero-image" />
         </div>
       </section>
 
@@ -63,28 +61,39 @@ const HeroPage = () => {
         </article>
       </section>
 
-      {galleryPreview && (
+      {(isGalleryLoading || galleryPreview) && (
         <section className="hero-gallery-preview" aria-label="Galeria destacada">
           <div className="hero-gallery-header">
             <h2 className="hero-gallery-title">Primeros retratos de la galeria</h2>
             <Link to="/dibujos" className="hero-gallery-link">
-              Ver todos los dibujos &rarr;
+              Ver todos los retratos &rarr;
             </Link>
           </div>
 
-          <div className="hero-gallery-grid">
-            {galleryPreview.map((drawing) => (
-              <article key={drawing.id} className="hero-gallery-card">
-                <img
-                  src={resolveMediaUrl(drawing.image_url)}
-                  alt={`Retrato ${drawing.id}`}
-                  className="hero-gallery-image"
-                />
-              </article>
-            ))}
-          </div>
+          {isGalleryLoading ? (
+            <div className="hero-gallery-grid" aria-live="polite" aria-busy="true">
+              <article className="hero-gallery-card hero-gallery-card-skeleton" aria-hidden="true" />
+              <article className="hero-gallery-card hero-gallery-card-skeleton" aria-hidden="true" />
+              <article className="hero-gallery-card hero-gallery-card-skeleton" aria-hidden="true" />
+            </div>
+          ) : (
+            galleryPreview && (
+              <div className="hero-gallery-grid">
+                {galleryPreview.map((drawing) => (
+                  <article key={drawing.id} className="hero-gallery-card">
+                    <img
+                      src={resolveMediaUrl(drawing.image_url)}
+                      alt={`Retrato ${drawing.id}`}
+                      className="hero-gallery-image"
+                    />
+                  </article>
+                ))}
+              </div>
+            )
+          )}
         </section>
       )}
+
     </div>
   );
 };

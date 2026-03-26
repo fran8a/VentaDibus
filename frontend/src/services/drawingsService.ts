@@ -6,18 +6,30 @@ export interface Drawing {
   instagram_link?: string;
 }
 
+let getAllDrawingsInFlight: Promise<Drawing[]> | null = null;
+
 /**
  * Obtiene todos los dibujos de la galería
  * @returns Lista de dibujos
  */
 export const getAllDrawings = async (): Promise<Drawing[]> => {
-  const response = await apiFetch('/drawings');
+  if (!getAllDrawingsInFlight) {
+    getAllDrawingsInFlight = (async () => {
+      const response = await apiFetch('/drawings');
 
-  if (!response.ok) {
-    throw new Error('Error al obtener los dibujos');
+      if (!response.ok) {
+        throw new Error('Error al obtener los dibujos');
+      }
+
+      return response.json();
+    })();
   }
 
-  return response.json();
+  try {
+    return await getAllDrawingsInFlight;
+  } finally {
+    getAllDrawingsInFlight = null;
+  }
 };
 
 /**
