@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import { Home, GalleryHorizontal, ClipboardList, Tag, Star, User, Package } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
@@ -81,29 +81,29 @@ const Sidebar = () => {
 
       <nav className="sidebar-nav">
         {menuItems.map((item) => (
-          <Link
+          <NavLink
             key={item.path}
             to={item.path}
-            className={`nav-item ${location.pathname === item.path ? 'active' : ''}`}
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
             title={!isOpen ? item.label : ''}
           >
             <span className="nav-icon"><item.icon size={18} strokeWidth={1.5} /></span>
             {isOpen && <span className="nav-label">{item.label}</span>}
-          </Link>
+          </NavLink>
         ))}
         {isAdmin && (
           <>
             {isOpen && <div className="nav-divider" />}
             {adminMenuItems.map((item) => (
-              <Link
+              <NavLink
                 key={item.path}
                 to={item.path}
-                className={`nav-item nav-item--admin ${location.pathname.startsWith(item.path) ? 'active' : ''}`}
+                className={({ isActive }) => `nav-item nav-item--admin ${isActive ? 'active' : ''}`}
                 title={!isOpen ? item.label : ''}
               >
                 <span className="nav-icon"><item.icon size={18} strokeWidth={1.5} /></span>
                 {isOpen && <span className="nav-label">{item.label}</span>}
-              </Link>
+              </NavLink>
             ))}
           </>
         )}

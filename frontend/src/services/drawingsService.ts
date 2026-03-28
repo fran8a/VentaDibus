@@ -6,13 +6,32 @@ export interface Drawing {
   instagram_link?: string;
 }
 
+const DRAWINGS_CACHE_TTL_MS = 60_000;
+
+let drawingsCache: Drawing[] | null = null;
+let drawingsCacheExpiresAt = 0;
 let getAllDrawingsInFlight: Promise<Drawing[]> | null = null;
+
+const invalidateDrawingsCacheInternal = () => {
+  drawingsCache = null;
+  drawingsCacheExpiresAt = 0;
+};
+
+export const invalidateDrawingsCache = () => {
+  invalidateDrawingsCacheInternal();
+};
 
 /**
  * Obtiene todos los dibujos de la galería
  * @returns Lista de dibujos
  */
 export const getAllDrawings = async (): Promise<Drawing[]> => {
+  const now = Date.now();
+
+  if (drawingsCache && now < drawingsCacheExpiresAt) {
+    return drawingsCache;
+  }
+
   if (!getAllDrawingsInFlight) {
     getAllDrawingsInFlight = (async () => {
       const response = await apiFetch('/drawings');
@@ -21,7 +40,10 @@ export const getAllDrawings = async (): Promise<Drawing[]> => {
         throw new Error('Error al obtener los dibujos');
       }
 
-      return response.json();
+      const drawings = await response.json() as Drawing[];
+      drawingsCache = drawings;
+      drawingsCacheExpiresAt = Date.now() + DRAWINGS_CACHE_TTL_MS;
+      return drawings;
     })();
   }
 
@@ -59,7 +81,9 @@ export const uploadDrawing = async (
     throw new Error('Error al subir el dibujo');
   }
 
-  return response.json();
+  const createdDrawing = await response.json() as Drawing;
+  invalidateDrawingsCacheInternal();
+  return createdDrawing;
 };
 
 /**
@@ -86,7 +110,9 @@ export const updateDrawing = async (
     throw new Error('Error al actualizar el dibujo');
   }
 
-  return response.json();
+  const updatedDrawing = await response.json() as Drawing;
+  invalidateDrawingsCacheInternal();
+  return updatedDrawing;
 };
 
 /**
@@ -105,4 +131,6 @@ export const deleteDrawing = async (
   if (!response.ok) {
     throw new Error('Error al eliminar el dibujo');
   }
+
+  invalidateDrawingsCacheInternal();
 };

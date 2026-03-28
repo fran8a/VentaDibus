@@ -99,6 +99,26 @@
   line-height: 1;
   color: #3d2f27;
   letter-spacing: 0.4px;
+  min-height: 58px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.simulator-price-skeleton {
+  width: clamp(170px, 42vw, 240px);
+  height: 58px;
+  border-radius: 12px;
+  display: inline-block;
+  background: linear-gradient(100deg, rgba(77, 61, 51, 0.12) 20%, rgba(77, 61, 51, 0.26) 45%, rgba(77, 61, 51, 0.12) 70%);
+  background-size: 220% 100%;
+  animation: skeletonShimmer 1.2s ease-in-out infinite;
+}
+
+.simulator-price-unavailable {
+  font-size: clamp(22px, 4vw, 30px);
+  line-height: 1.1;
+  font-weight: 500;
 }
 
 .simulator-field {
@@ -519,6 +539,15 @@
   }
 }
 
+@keyframes skeletonShimmer {
+  from {
+    background-position: 100% 50%;
+  }
+  to {
+    background-position: 0% 50%;
+  }
+}
+
 @media (max-width: 768px) {
   .precios {
     padding: 20px 14px;
@@ -556,6 +585,15 @@
   .simulator-price-box {
     padding: 20px 14px;
     margin-bottom: 24px;
+  }
+
+  .simulator-price-value {
+    min-height: 48px;
+  }
+
+  .simulator-price-skeleton {
+    height: 48px;
+    border-radius: 10px;
   }
 
   .simulator-size-grid {
@@ -664,6 +702,16 @@
 
   .simulator-price-value {
     font-size: 40px;
+    min-height: 40px;
+  }
+
+  .simulator-price-skeleton {
+    height: 40px;
+    border-radius: 8px;
+  }
+
+  .simulator-price-unavailable {
+    font-size: 22px;
   }
 
   .simulator-frame-row {

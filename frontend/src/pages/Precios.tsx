@@ -15,6 +15,7 @@ const Precios = () => {
   const [withFrame, setWithFrame] = useState(false);
 
   const isAdmin = isAdminEmail(user?.email);
+  const isPricePending = !isAdmin && isLoading;
 
   useEffect(() => {
     fetchPricing();
@@ -72,11 +73,10 @@ const Precios = () => {
         <h1 className="page-title">Retratos de animales a lápiz</h1>
       </header>
 
-      {isLoading ? (
-        <div className="loading">Cargando precios...</div>
-      ) : (
-        <>
-          {isAdmin ? (
+      {isAdmin ? (
+        isLoading ? (
+          <div className="loading">Cargando precios...</div>
+        ) : (
             <div className="pricing-table-container">
               <div className="pricing-admin-bar">
                 <button className="btn-edit-prices" onClick={() => setIsEditModalOpen(true)}>
@@ -118,75 +118,82 @@ const Precios = () => {
               </div>
               <p className="table-mobile-hint">Desliza horizontalmente para ver toda la tabla en celular.</p>
             </div>
-          ) : (
-            <section className="pricing-simulator-container" aria-label="Simulador de precio de retratos">
-              <p className="simulator-kicker">Precio estimado</p>
-              <h2 className="simulator-title">Simula tu retrato ideal</h2>
-              <p className="simulator-subtitle">
-                Elegi tamano, estilo y si lo queres con cuadro para ver el valor actualizado al instante.
-              </p>
+          )
+      ) : (
+        <section className="pricing-simulator-container" aria-label="Simulador de precio de retratos">
+          <p className="simulator-kicker">Precio estimado</p>
+          <h2 className="simulator-title">Simula tu retrato ideal</h2>
+          <p className="simulator-subtitle">
+            Elegi tamano, estilo y si lo queres con cuadro para ver el valor actualizado al instante.
+          </p>
 
-              <div className="simulator-price-box" aria-live="polite">
-                <span className="simulator-price-label">Tu retrato</span>
-                <strong className="simulator-price-value">
-                  {estimatedPrice !== null ? `$${estimatedPrice.toLocaleString()}` : 'No disponible'}
-                </strong>
-              </div>
+          <div className="simulator-price-box" aria-live="polite" aria-busy={isPricePending}>
+            <span className="simulator-price-label">Tu retrato</span>
+            <strong className="simulator-price-value">
+              {isPricePending ? (
+                <span className="simulator-price-skeleton" aria-hidden="true" />
+              ) : (
+                estimatedPrice !== null ? (
+                  `$${estimatedPrice.toLocaleString()}`
+                ) : (
+                  <span className="simulator-price-unavailable">No disponible</span>
+                )
+              )}
+            </strong>
+          </div>
 
-              <div className="simulator-field">
-                <h3 className="simulator-field-title">1. Tamano</h3>
-                <div className="simulator-size-grid">
-                  {sizes.map((size) => (
-                    <button
-                      key={size}
-                      type="button"
-                      className={`simulator-option-btn ${selectedSize === size ? 'selected' : ''}`}
-                      onClick={() => setSelectedSize(size)}
-                    >
-                      {sizeLabels[size]}
-                    </button>
-                  ))}
-                </div>
-              </div>
+          <div className="simulator-field">
+            <h3 className="simulator-field-title">1. Tamano</h3>
+            <div className="simulator-size-grid">
+              {sizes.map((size) => (
+                <button
+                  key={size}
+                  type="button"
+                  className={`simulator-option-btn ${selectedSize === size ? 'selected' : ''}`}
+                  onClick={() => setSelectedSize(size)}
+                >
+                  {sizeLabels[size]}
+                </button>
+              ))}
+            </div>
+          </div>
 
-              <div className="simulator-field">
-                <h3 className="simulator-field-title">2. Estilo</h3>
-                <div className="simulator-style-grid">
-                  {styles.map((style) => (
-                    <button
-                      key={style}
-                      type="button"
-                      className={`simulator-option-btn ${selectedStyle === style ? 'selected' : ''}`}
-                      onClick={() => setSelectedStyle(style)}
-                    >
-                      {style}
-                    </button>
-                  ))}
-                </div>
-              </div>
+          <div className="simulator-field">
+            <h3 className="simulator-field-title">2. Estilo</h3>
+            <div className="simulator-style-grid">
+              {styles.map((style) => (
+                <button
+                  key={style}
+                  type="button"
+                  className={`simulator-option-btn ${selectedStyle === style ? 'selected' : ''}`}
+                  onClick={() => setSelectedStyle(style)}
+                >
+                  {style}
+                </button>
+              ))}
+            </div>
+          </div>
 
-              <div className="simulator-frame-row">
-                <div>
-                  <p className="simulator-frame-title">3. Con cuadro</p>
-                  <p className="simulator-frame-subtitle">Activalo si queres recibirlo listo para colgar.</p>
-                </div>
-                <label className="frame-switch" htmlFor="frame-toggle">
-                  <input
-                    id="frame-toggle"
-                    type="checkbox"
-                    checked={withFrame}
-                    onChange={(event) => setWithFrame(event.target.checked)}
-                  />
-                  <span className="frame-switch-slider" />
-                </label>
-              </div>
+          <div className="simulator-frame-row">
+            <div>
+              <p className="simulator-frame-title">3. Con cuadro</p>
+              <p className="simulator-frame-subtitle">Activalo si queres recibirlo listo para colgar.</p>
+            </div>
+            <label className="frame-switch" htmlFor="frame-toggle">
+              <input
+                id="frame-toggle"
+                type="checkbox"
+                checked={withFrame}
+                onChange={(event) => setWithFrame(event.target.checked)}
+              />
+              <span className="frame-switch-slider" />
+            </label>
+          </div>
 
-              <button type="button" className="simulator-cta" onClick={handleOrderCTA}>
-                Quiero encargar este retrato
-              </button>
-            </section>
-          )}
-        </>
+          <button type="button" className="simulator-cta" onClick={handleOrderCTA}>
+            Quiero encargar este retrato
+          </button>
+        </section>
       )}
 
       {isAdmin && token && (
