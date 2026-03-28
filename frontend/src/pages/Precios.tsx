@@ -131,7 +131,11 @@ const Precios = () => {
             <span className="simulator-price-label">Tu retrato</span>
             <strong className="simulator-price-value">
               {isPricePending ? (
-                <span className="simulator-price-skeleton" aria-hidden="true" />
+                <span className="simulator-price-dots" aria-hidden="true">
+                  <span className="simulator-price-dot" />
+                  <span className="simulator-price-dot" />
+                  <span className="simulator-price-dot" />
+                </span>
               ) : (
                 estimatedPrice !== null ? (
                   `$${estimatedPrice.toLocaleString()}`
