@@ -13,14 +13,14 @@
 .page-title {
   font-size: 42px;
   font-weight: 300;
-  color: #6b5d52;
+  color: #4a3f37;
   margin: 0 0 14px;
   letter-spacing: 1px;
 }
 
 .page-header p {
   font-size: 18px;
-  color: #8b7765;
+  color: #5f5148;
   font-weight: 300;
   max-width: 700px;
   margin: 0 auto;
@@ -39,6 +39,7 @@
   background: linear-gradient(135deg, #f5f0e8 0%, #ebe4d8 100%);
   padding: 40px 20px;
   border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   text-align: center;
   transition: all 0.3s ease;
   box-shadow: 0 4px 20px rgba(139, 119, 101, 0.08);
@@ -52,14 +53,14 @@
 .stat-numero {
   font-size: 48px;
   font-weight: 300;
-  color: #6b5d52;
+  color: #4a3f37;
   margin-bottom: 12px;
   letter-spacing: -1px;
 }
 
 .stat-label {
   font-size: 16px;
-  color: #8b7765;
+  color: #5f5148;
   font-weight: 400;
   letter-spacing: 0.5px;
 }
@@ -108,13 +109,13 @@
 .testimonio-nombre {
   font-size: 18px;
   font-weight: 500;
-  color: #6b5d52;
+  color: #4a3f37;
   margin: 0 0 4px 0;
 }
 
 .testimonio-mascota {
   font-size: 14px;
-  color: #8b7765;
+  color: #5f5148;
   margin: 0;
   font-weight: 300;
 }
@@ -124,14 +125,14 @@
 }
 
 .estrella {
-  color: #d4c4b0;
+  color: #7f6a59;
   font-size: 20px;
   margin-right: 4px;
 }
 
 .testimonio-texto {
   font-size: 15px;
-  color: #6b5d52;
+  color: #4a3f37;
   line-height: 1.7;
   font-style: italic;
   margin: 0;
@@ -145,7 +146,7 @@
 .gallery-title {
   font-size: 36px;
   font-weight: 300;
-  color: #6b5d52;
+  color: #4a3f37;
   text-align: center;
   margin-bottom: 40px;
   letter-spacing: 1px;
@@ -415,7 +416,7 @@
 .loading-text,
 .empty-text {
   font-size: 16px;
-  color: #8b7765;
+  color: #5f5148;
   font-weight: 300;
 }
 
@@ -456,7 +457,7 @@
 .hidden-badge {
   font-size: 11px;
   background: #f0e0d0;
-  color: #8b7765;
+  color: #5f5148;
   padding: 3px 10px;
   border-radius: 20px;
   font-weight: 500;

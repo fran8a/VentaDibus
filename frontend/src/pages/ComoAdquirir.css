@@ -13,7 +13,7 @@
 .page-title {
   font-size: 48px;
   font-weight: 300;
-  color: #6b5d52;
+  color: #4a3f37;
   margin: 0;
   letter-spacing: 1px;
 }
@@ -29,6 +29,7 @@
   background: #ffffff;
   padding: 40px 30px;
   border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.16);
   text-align: center;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 4px 20px rgba(139, 119, 101, 0.08);
@@ -60,7 +61,7 @@
 .step-number {
   font-size: 48px;
   font-weight: 300;
-  color: #e8ddd0;
+  color: #8b7868;
   margin-bottom: 20px;
   letter-spacing: 2px;
 }
@@ -68,28 +69,18 @@
 .step-icon {
   font-size: 56px;
   margin-bottom: 20px;
-  animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
 }
 
 .step-title {
   font-size: 24px;
   font-weight: 400;
-  color: #6b5d52;
+  color: #4a3f37;
   margin-bottom: 16px;
 }
 
 .step-description {
   font-size: 16px;
-  color: #8b7765;
+  color: #5f5148;
   line-height: 1.6;
   font-weight: 300;
   margin: 0 0 16px 0;
@@ -104,7 +95,7 @@
 
 .step-details li {
   padding: 8px 12px;
-  color: #6b5d52;
+  color: #4a3f37;
   font-size: 14px;
   background: #f5f0e8;
   border-radius: 8px;
@@ -126,7 +117,7 @@
 .section-title {
   font-size: 36px;
   font-weight: 300;
-  color: #6b5d52;
+  color: #4a3f37;
   text-align: center;
   margin-bottom: 16px;
   letter-spacing: 1px;
@@ -134,7 +125,7 @@
 
 .section-subtitle {
   font-size: 18px;
-  color: #8b7765;
+  color: #5f5148;
   text-align: center;
   max-width: 700px;
   margin: 0 auto 50px;
@@ -172,13 +163,13 @@
 .tip-title {
   font-size: 20px;
   font-weight: 400;
-  color: #6b5d52;
+  color: #4a3f37;
   margin: 0 0 12px 0;
 }
 
 .tip-description {
   font-size: 15px;
-  color: #8b7765;
+  color: #5f5148;
   margin: 0;
   font-weight: 300;
   line-height: 1.6;
@@ -191,7 +182,7 @@
 .examples-title {
   font-size: 28px;
   font-weight: 300;
-  color: #6b5d52;
+  color: #4a3f37;
   text-align: center;
   margin-bottom: 32px;
   letter-spacing: 0.5px;
@@ -257,14 +248,14 @@
 .contact-title {
   font-size: 36px;
   font-weight: 300;
-  color: #6b5d52;
+  color: #4a3f37;
   margin-bottom: 16px;
   letter-spacing: 1px;
 }
 
 .contact-text {
   font-size: 18px;
-  color: #8b7765;
+  color: #5f5148;
   margin-bottom: 32px;
   line-height: 1.6;
   font-weight: 300;
@@ -272,7 +263,7 @@
 
 .page-description {
   font-size: 18px;
-  color: #8b7765;
+  color: #5f5148;
   text-align: center;
   max-width: 600px;
   margin: 16px auto 0;

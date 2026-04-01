@@ -7,7 +7,7 @@
 
 .page-description {
   font-size: 18px;
-  color: #8b7765;
+  color: #5f5148;
   font-weight: 300;
   max-width: 600px;
   margin: 0 auto;
@@ -23,14 +23,14 @@
 .page-title {
   font-size: 48px;
   font-weight: 300;
-  color: #6b5d52;
+  color: #4a3f37;
   margin-bottom: 16px;
   letter-spacing: 2px;
 }
 
 .page-subtitle {
   font-size: 18px;
-  color: #8b7765;
+  color: #5f5148;
   font-weight: 300;
   max-width: 600px;
   margin: 0 auto;
@@ -169,7 +169,7 @@
   flex-direction: column;
   align-items: center;
   gap: 16px;
-  color: #6b5d52;
+  color: #4a3f37;
 }
 
 .add-icon {
@@ -196,7 +196,7 @@
   grid-column: 1 / -1;
   text-align: center;
   padding: 60px 20px;
-  color: #8b7765;
+  color: #5f5148;
   font-size: 18px;
 }
 
@@ -207,14 +207,14 @@
 .card-title {
   font-size: 24px;
   font-weight: 400;
-  color: #6b5d52;
+  color: #4a3f37;
   margin-bottom: 8px;
 }
 
 .card-badge {
   display: inline-block;
   background: #f5f0e8;
-  color: #8b7765;
+  color: #5f5148;
   padding: 4px 12px;
   border-radius: 12px;
   font-size: 13px;
@@ -223,7 +223,7 @@
 }
 
 .card-description {
-  color: #8b7765;
+  color: #5f5148;
   font-size: 15px;
   line-height: 1.6;
   margin: 0;

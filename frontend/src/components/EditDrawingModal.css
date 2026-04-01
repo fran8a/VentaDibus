@@ -32,7 +32,7 @@
 .edit-modal-title {
   font-size: 28px;
   font-weight: 400;
-  color: #6b5d52;
+  color: #4a3f37;
   margin: 0;
 }
 
@@ -40,7 +40,7 @@
   background: none;
   border: none;
   font-size: 28px;
-  color: #8b7765;
+  color: #5f5148;
   cursor: pointer;
   padding: 0;
   width: 32px;
@@ -54,7 +54,7 @@
 
 .edit-modal-close:hover {
   background: rgba(139, 119, 101, 0.1);
-  color: #6b5d52;
+  color: #4a3f37;
 }
 
 .edit-modal-body {
@@ -80,7 +80,7 @@
 .edit-form-label {
   font-size: 14px;
   font-weight: 500;
-  color: #6b5d52;
+  color: #4a3f37;
   letter-spacing: 0.5px;
 }
 
@@ -89,7 +89,7 @@
   border: 1px solid #d4c4b0;
   border-radius: 12px;
   font-size: 15px;
-  color: #6b5d52;
+  color: #4a3f37;
   transition: all 0.3s ease;
   font-family: inherit;
 }
@@ -136,7 +136,7 @@
 
 .edit-modal-button-secondary {
   background: transparent;
-  color: #8b7765;
+  color: #5f5148;
   border: 1px solid #d4c4b0;
 }
 

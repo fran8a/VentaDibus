@@ -27,7 +27,7 @@
 .page-title {
   font-size: 42px;
   font-weight: 300;
-  color: #6b5d52;
+  color: #4a3f37;
   margin: 0 0 8px;
   letter-spacing: 1px;
   text-align: center;
@@ -35,7 +35,7 @@
 
 .page-subtitle {
   font-size: 16px;
-  color: #8b7765;
+  color: #5f5148;
   font-weight: 300;
   margin: 0;
   display: flex;
@@ -47,7 +47,7 @@
 
 .total-badge {
   background: #f0ebe6;
-  color: #6b5d52;
+  color: #4a3f37;
   font-size: 13px;
   padding: 2px 10px;
   border-radius: 20px;
@@ -98,7 +98,7 @@
 .filter-label {
   font-size: 11px;
   font-weight: 600;
-  color: #8b7765;
+  color: #5f5148;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -118,7 +118,7 @@
 }
 
 .filter-input::placeholder {
-  color: #c9b8a8;
+  color: #7b6959;
 }
 
 .filter-input:focus {
@@ -200,7 +200,7 @@
   align-items: center;
   gap: 16px;
   padding: 80px 0;
-  color: #8b7765;
+  color: #5f5148;
 }
 
 .loading-spinner {
@@ -223,7 +223,7 @@
   align-items: center;
   gap: 16px;
   padding: 80px 0;
-  color: #8b7765;
+  color: #5f5148;
 }
 
 .empty-icon {
@@ -237,7 +237,7 @@
   align-items: center;
   gap: 16px;
   padding: 100px 0;
-  color: #8b7765;
+  color: #5f5148;
   font-size: 18px;
 }
 
@@ -268,7 +268,7 @@
   text-align: left;
   font-size: 12px;
   font-weight: 600;
-  color: #8b7765;
+  color: #5f5148;
   text-transform: uppercase;
   letter-spacing: 0.6px;
   border-bottom: 1px solid #ece5de;
@@ -294,7 +294,7 @@
 
 .col-id {
   font-weight: 500;
-  color: #8b7765;
+  color: #5f5148;
   width: 60px;
 }
 
@@ -304,11 +304,11 @@
 
 .col-price {
   font-weight: 600;
-  color: #6b5d52;
+  color: #4a3f37;
 }
 
 .col-date {
-  color: #6b5d52;
+  color: #4a3f37;
 }
 
 .col-status {
@@ -385,7 +385,7 @@
   border: 1.5px solid #c9b8a8;
   border-radius: 10px;
   background: white;
-  color: #6b5d52;
+  color: #4a3f37;
   font-size: 14px;
   font-family: inherit;
   cursor: pointer;
@@ -403,7 +403,7 @@
 }
 
 .page-info {
-  color: #8b7765;
+  color: #5f5148;
   font-size: 14px;
 }
 

@@ -30,7 +30,7 @@
   font-size: 13px;
   letter-spacing: 1.8px;
   text-transform: uppercase;
-  color: #9e7f6d;
+  color: #6d574a;
   font-weight: 600;
 }
 
@@ -100,7 +100,7 @@
   background:
     radial-gradient(circle at 72% 26%, rgba(196, 144, 122, 0.3) 0%, rgba(196, 144, 122, 0) 52%),
     linear-gradient(165deg, #f9f4ea 0%, #efe2d2 100%);
-  color: #6e5d52;
+  color: #4f443d;
   font-size: 28px;
   font-family: 'Times New Roman', Georgia, serif;
   letter-spacing: 0.6px;
@@ -134,7 +134,7 @@
 .hero-stat-label {
   margin: 6px 0 0;
   font-size: 15px;
-  color: #6f6056;
+  color: #4f443d;
 }
 
 .hero-gallery-preview {

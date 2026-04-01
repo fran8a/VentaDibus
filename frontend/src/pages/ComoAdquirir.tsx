@@ -5,7 +5,7 @@ const ComoAdquirir = () => {
     {
       numero: '01',
       titulo: 'Elegí el Tamaño',
-      descripcion: '¡Tenés varias opciones! Elegí entre 15x21cm, 20x30cm, 30x40cm o si querés algo especial, me decís qué tamaño necesitás',
+      descripcion: '¡Tenés varias opciones!',
       icon: '📏',
       detalles: ['Pequeño: 15x21cm', 'Mediano: 20x30cm', 'Grande: 30x40cm', '¡Personalizado a tu gusto!']
     },

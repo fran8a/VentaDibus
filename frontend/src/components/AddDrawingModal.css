@@ -32,7 +32,7 @@
 .modal-title {
   font-size: 28px;
   font-weight: 400;
-  color: #6b5d52;
+  color: #4a3f37;
   margin: 0;
 }
 
@@ -40,7 +40,7 @@
   background: none;
   border: none;
   font-size: 28px;
-  color: #8b7765;
+  color: #5f5148;
   cursor: pointer;
   padding: 0;
   width: 32px;
@@ -54,7 +54,7 @@
 
 .modal-close:hover {
   background: rgba(139, 119, 101, 0.1);
-  color: #6b5d52;
+  color: #4a3f37;
 }
 
 .modal-body {
@@ -72,7 +72,7 @@
 .form-label {
   font-size: 14px;
   font-weight: 500;
-  color: #6b5d52;
+  color: #4a3f37;
   letter-spacing: 0.5px;
 }
 
@@ -85,7 +85,7 @@
 
 .file-input-button {
   background: linear-gradient(135deg, #f5f0e8 0%, #ebe4d8 100%);
-  color: #6b5d52;
+  color: #4a3f37;
   padding: 16px 24px;
   border: 2px dashed #d4c4b0;
   border-radius: 12px;
@@ -120,7 +120,7 @@
   border: 1px solid #d4c4b0;
   border-radius: 12px;
   font-size: 15px;
-  color: #6b5d52;
+  color: #4a3f37;
   transition: all 0.3s ease;
   font-family: inherit;
 }
@@ -175,7 +175,7 @@
 
 .modal-button-secondary {
   background: transparent;
-  color: #8b7765;
+  color: #5f5148;
   border: 1px solid #d4c4b0;
 }
 

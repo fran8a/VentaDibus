@@ -34,7 +34,7 @@
 .modal-header h2 {
   font-size: 24px;
   font-weight: 400;
-  color: #6b5d52;
+  color: #4a3f37;
   margin: 0;
 }
 
@@ -42,7 +42,7 @@
   background: none;
   border: none;
   font-size: 32px;
-  color: #8b7765;
+  color: #5f5148;
   cursor: pointer;
   width: 40px;
   height: 40px;
@@ -55,7 +55,7 @@
 
 .modal-close:hover {
   background: rgba(139, 119, 101, 0.1);
-  color: #6b5d52;
+  color: #4a3f37;
 }
 
 .pricing-edit-form {
@@ -173,7 +173,7 @@
 
 .btn-cancel {
   background: rgba(139, 119, 101, 0.1);
-  color: #6b5d52;
+  color: #4a3f37;
 }
 
 .btn-cancel:hover:not(:disabled) {

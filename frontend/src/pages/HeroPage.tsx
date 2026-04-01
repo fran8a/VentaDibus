@@ -34,7 +34,7 @@ const HeroPage = () => {
           <p className="hero-kicker">Retratos artesanales para quienes aman a sus mascotas</p>
           <h1 className="hero-title">Sab Dibus</h1>
           <p className="hero-tagline">
-            Retratos de tu mascota a lapiz, con amor y dedicacion.
+            Retratos de tu mascota a lápiz, con amor y dedicación.
           </p>
           <Link to="/precios" className="hero-cta">
             Encargar mi retrato
