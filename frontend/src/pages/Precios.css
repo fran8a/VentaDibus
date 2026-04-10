@@ -163,6 +163,12 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.simulator-size-note {
+  margin: 10px 2px 0;
+  font-size: 14px;
+  color: #5f5148;
+}
+
 .simulator-option-btn {
   border: 1.5px solid #cfbaa6;
   border-radius: 14px;
@@ -210,6 +216,50 @@
   margin: 0;
   color: #5f5148;
   font-size: 14px;
+}
+
+.simulator-extras-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.simulator-extra-btn {
+  border: 1.5px solid #cfbaa6;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 14px 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-family: inherit;
+  color: #56483e;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.simulator-extra-btn:hover {
+  border-color: #b38d78;
+  transform: translateY(-1px);
+}
+
+.simulator-extra-btn.selected {
+  background: #f2e5d7;
+  border-color: #8f6d5b;
+  color: #45362d;
+  box-shadow: 0 0 0 2px rgba(143, 109, 91, 0.18);
+}
+
+.simulator-extra-title {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.simulator-extra-description {
+  font-size: 13px;
+  line-height: 1.45;
 }
 
 .frame-switch {
@@ -628,9 +678,22 @@
     grid-template-columns: 1fr;
   }
 
+  .simulator-extras-grid {
+    grid-template-columns: 1fr;
+  }
+
   .simulator-option-btn {
     padding: 13px 10px;
     font-size: 15px;
+  }
+
+  .simulator-size-note {
+    font-size: 13px;
+    margin-top: 9px;
+  }
+
+  .simulator-extra-btn {
+    padding: 13px 10px;
   }
 
   .simulator-frame-row {

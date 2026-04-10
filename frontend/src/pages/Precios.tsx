@@ -13,6 +13,8 @@ const Precios = () => {
   const [selectedSize, setSelectedSize] = useState('15x21');
   const [selectedStyle, setSelectedStyle] = useState('Blanco y negro');
   const [withFrame, setWithFrame] = useState(false);
+  const [hasAdditionalPet, setHasAdditionalPet] = useState(false);
+  const [hasPetNameDesign, setHasPetNameDesign] = useState(false);
 
   const isAdmin = isAdminEmail(user?.email);
   const isPricePending = !isAdmin && isLoading;
@@ -52,17 +54,36 @@ const Precios = () => {
   const selectedPricing = pricingData.find(
     (item) => item.size === selectedSize && item.style.toLowerCase() === selectedStyle.toLowerCase()
   );
-  const estimatedPrice = selectedPricing
+  const basePriceWithoutFrame = selectedPricing?.price_without_frame ?? null;
+  const basePrice = selectedPricing
     ? withFrame
       ? selectedPricing.price_with_frame
       : selectedPricing.price_without_frame
     : null;
+  const additionalPetExtra =
+    basePriceWithoutFrame !== null && hasAdditionalPet ? Math.round(basePriceWithoutFrame * 0.3) : 0;
+  const petNameDesignExtra =
+    basePriceWithoutFrame !== null && hasPetNameDesign ? Math.round(basePriceWithoutFrame * 0.1) : 0;
+  const estimatedPrice = basePrice !== null ? basePrice + additionalPetExtra + petNameDesignExtra : null;
 
   const handleOrderCTA = () => {
+    const selectedExtras: string[] = [];
+
+    if (hasAdditionalPet) {
+      selectedExtras.push('mascota adicional (+30%)');
+    }
+
+    if (hasPetNameDesign) {
+      selectedExtras.push('diseno y nombre (+10%)');
+    }
+
+    const extrasText = selectedExtras.length > 0 ? `, extras: ${selectedExtras.join(', ')}` : ', sin extras';
+    const totalText = estimatedPrice !== null ? ` Total estimado: $${estimatedPrice.toLocaleString()}.` : '';
+
     const message = encodeURIComponent(
       `Hola Sabri, quiero encargar este retrato: ${sizeLabels[selectedSize]}, ${selectedStyle}${
         withFrame ? ', con cuadro' : ', sin cuadro'
-      }.`
+      }${extrasText}.${totalText}`
     );
     window.open(`https://wa.me/5492966563805?text=${message}`, '_blank', 'noopener,noreferrer');
   };
@@ -124,7 +145,7 @@ const Precios = () => {
           <p className="simulator-kicker">Precio estimado</p>
           <h2 className="simulator-title">Simula tu retrato ideal</h2>
           <p className="simulator-subtitle">
-            Elegi tamano, estilo y si lo queres con cuadro para ver el valor actualizado al instante.
+            Elegi tamano, estilo, cuadro y extras para ver el valor actualizado al instante.
           </p>
 
           <div className="simulator-price-box" aria-live="polite" aria-busy={isPricePending}>
@@ -160,6 +181,7 @@ const Precios = () => {
                 </button>
               ))}
             </div>
+            <p className="simulator-size-note">Si queres otro tamano en especifico, escribime y lo cotizamos.</p>
           </div>
 
           <div className="simulator-field">
@@ -194,6 +216,30 @@ const Precios = () => {
             </label>
           </div>
 
+          <div className="simulator-field">
+            <h3 className="simulator-field-title">4. Extras</h3>
+            <div className="simulator-extras-grid">
+              <button
+                type="button"
+                className={`simulator-extra-btn ${hasAdditionalPet ? 'selected' : ''}`}
+                onClick={() => setHasAdditionalPet((prev) => !prev)}
+                aria-pressed={hasAdditionalPet}
+              >
+                <span className="simulator-extra-title">Mascota adicional</span>
+                <span className="simulator-extra-description">+30% sobre el precio sin cuadro del estilo elegido.</span>
+              </button>
+              <button
+                type="button"
+                className={`simulator-extra-btn ${hasPetNameDesign ? 'selected' : ''}`}
+                onClick={() => setHasPetNameDesign((prev) => !prev)}
+                aria-pressed={hasPetNameDesign}
+              >
+                <span className="simulator-extra-title">Diseno y nombre de la mascota</span>
+                <span className="simulator-extra-description">+10% sobre el precio sin cuadro del tamano elegido.</span>
+              </button>
+            </div>
+          </div>
+
           <button type="button" className="simulator-cta" onClick={handleOrderCTA}>
             Quiero encargar este retrato
           </button>
@@ -216,7 +262,9 @@ const Precios = () => {
           <h3 className="info-title">INFORMACIÓN ADMINISTRATIVA</h3>
           <p className="info-text">
             En el caso de querer algún tamaño en específico, no dudes en consultarme!<br />
-            <strong>Si querés adicionar una mascota en el mismo retrato, se le suma un 50% del estilo que elijas!</strong>
+            <strong>Extras disponibles:</strong><br />
+            Mascota adicional en el mismo retrato: +30% del estilo elegido (sin cuadro).<br />
+            Diseño y agregado del nombre de la mascota: +10% del tamaño/estilo elegido (sin cuadro).
           </p>
         </div>
         

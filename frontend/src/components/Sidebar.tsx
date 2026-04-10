@@ -17,7 +17,7 @@ const Sidebar = () => {
 
   const menuItems = [
     { path: '/', label: 'Inicio', icon: Home },
-    { path: '/dibujos', label: 'Mis Dibujos', icon: GalleryHorizontal },
+    { path: '/dibujos', label: 'Dibujos', icon: GalleryHorizontal },
     { path: '/como-adquirir', label: 'Cómo Adquirir', icon: ClipboardList },
     { path: '/precios', label: 'Precios', icon: Tag },
     { path: '/experiencia', label: 'Experiencia', icon: Star },
