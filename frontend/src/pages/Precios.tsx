@@ -55,6 +55,10 @@ const Precios = () => {
     (item) => item.size === selectedSize && item.style.toLowerCase() === selectedStyle.toLowerCase()
   );
   const basePriceWithoutFrame = selectedPricing?.price_without_frame ?? null;
+  const blackAndWhitePricingForSize = pricingData.find(
+    (item) => item.size === selectedSize && item.style.toLowerCase() === 'blanco y negro'
+  );
+  const blackAndWhiteSizeBaseWithoutFrame = blackAndWhitePricingForSize?.price_without_frame ?? null;
   const basePrice = selectedPricing
     ? withFrame
       ? selectedPricing.price_with_frame
@@ -63,7 +67,9 @@ const Precios = () => {
   const additionalPetExtra =
     basePriceWithoutFrame !== null && hasAdditionalPet ? Math.round(basePriceWithoutFrame * 0.3) : 0;
   const petNameDesignExtra =
-    basePriceWithoutFrame !== null && hasPetNameDesign ? Math.round(basePriceWithoutFrame * 0.1) : 0;
+    blackAndWhiteSizeBaseWithoutFrame !== null && hasPetNameDesign
+      ? Math.round(blackAndWhiteSizeBaseWithoutFrame * 0.1)
+      : 0;
   const estimatedPrice = basePrice !== null ? basePrice + additionalPetExtra + petNameDesignExtra : null;
 
   const handleOrderCTA = () => {

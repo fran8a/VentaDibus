@@ -72,10 +72,12 @@ const Sidebar = () => {
 
         <div className="sidebar-header">
           {isOpen && (
-            <div className="logo-container">
-              <span className="logo-icon">🐾</span>
-              <h2 className="logo-text">Sab Dibus</h2>
-            </div>
+            <NavLink to="/" className="logo-home-link" title="Ir al inicio">
+              <div className="logo-container">
+                <span className="logo-icon">🐾</span>
+                <h2 className="logo-text">Sab Dibus</h2>
+              </div>
+            </NavLink>
           )}
         </div>
 

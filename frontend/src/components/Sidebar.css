@@ -58,6 +58,12 @@ body.lightbox-open .sidebar-overlay {
   align-items: center;
 }
 
+.logo-home-link {
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
 .logo-container {
   display: flex;
   align-items: center;
