@@ -80,7 +80,7 @@ const Precios = () => {
     }
 
     if (hasPetNameDesign) {
-      selectedExtras.push('diseno y nombre (+10%)');
+      selectedExtras.push('diseño y nombre (+10%)');
     }
 
     const extrasText = selectedExtras.length > 0 ? `, extras: ${selectedExtras.join(', ')}` : ', sin extras';
