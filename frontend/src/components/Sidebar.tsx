@@ -10,8 +10,9 @@ import './Sidebar.css';
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [loginError, setLoginError] = useState('');
   const location = useLocation();
-  const { user, logout, handleGoogleLogin } = useAuth();
+  const { user, logout, handleGoogleLogin, isLoading } = useAuth();
 
   const isAdmin = isAdminEmail(user?.email);
 
@@ -128,19 +129,27 @@ const Sidebar = () => {
                 Cerrar Sesión
               </button>
             </div>
+          ) : isLoading ? (
+            <div className="login-loading">Cargando sesion...</div>
           ) : (
             <div className="google-login-container">
               <GoogleLogin
-                onSuccess={handleGoogleLogin}
+                onSuccess={(credentialResponse) => {
+                  setLoginError('');
+                  handleGoogleLogin(credentialResponse);
+                }}
                 onError={() => {
                   console.log('Login Failed');
+                  setLoginError('Chrome bloqueo la ventana de Google. Habilita popups o el inicio de sesion de terceros para este sitio.');
                 }}
-                useOneTap
+                click_listener={() => setLoginError('')}
+                use_fedcm_for_button
                 theme="filled_blue"
                 size="large"
                 text="signin_with"
                 shape="rectangular"
               />
+              {loginError && <p className="login-error">{loginError}</p>}
             </div>
           )}
           

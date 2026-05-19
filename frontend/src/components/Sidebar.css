@@ -238,6 +238,7 @@ body.lightbox-open .sidebar-overlay {
 .google-login-container {
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-bottom: 12px;
@@ -249,6 +250,19 @@ body.lightbox-open .sidebar-overlay {
 
 .google-login-container iframe {
   width: 100% !important;
+}
+
+.login-loading,
+.login-error {
+  color: #5f5148;
+  font-size: 12px;
+  line-height: 1.4;
+  margin: 0 0 12px;
+  text-align: center;
+}
+
+.login-error {
+  margin: 8px 0 0;
 }
 
 .social-links-minimal {
