@@ -32,7 +32,7 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
 ## Mantener activo el Backend en Render Free
 
-Render Free duerme los servicios web despues de 15 minutos sin trafico. Para reducir el cold start, este repo incluye un GitHub Action que llama al endpoint `/health` cada 20 minutos.
+Render Free duerme los servicios web despues de 15 minutos sin trafico. Para reducir el cold start, este repo incluye un GitHub Action que llama al endpoint `/health` cada 5 minutos.
 
 El workflow esta en:
 
@@ -46,9 +46,9 @@ Actualmente llama a:
 https://ventadibus.onrender.com/api/health
 ```
 
-Subi los cambios a GitHub. El workflow se ejecuta solo cada 20 minutos y tambien se puede correr manualmente desde la pestana `Actions`.
+Subi los cambios a GitHub. El workflow se ejecuta solo cada 5 minutos y tambien se puede correr manualmente desde la pestana `Actions`.
 
-Cada 20 minutos puede reducir el cold start, pero Render Free puede dormirse despues de 15 minutos sin trafico.
+Cada ejecucion hace reintentos para tolerar cold starts o fallos temporales de Render Free.
 
 
 ## Estructura del Proyecto
